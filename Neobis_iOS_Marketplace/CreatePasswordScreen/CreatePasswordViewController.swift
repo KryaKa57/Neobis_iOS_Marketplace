@@ -1,22 +1,22 @@
 //
-//  RegisterController.swift
-//  neobis_ios_auth
+//  CreatePasswordViewController.swift
+//  Neobis_iOS_Marketplace
 //
-//  Created by Alisher on 06.12.2023.
+//  Created by Alisher on 20.12.2023.
 //
 
 import Foundation
 import UIKit
 
 
-class RegisterViewController: UIViewController {
+class CreatePasswordViewController: UIViewController {
     
     private let systemBounds = UIScreen.main.bounds
-    let registerView = RegisterView()
-    let registerViewModel: RegisterViewModel
+    let createPasswordView = CreatePasswordView()
+    let createPasswordViewModel: CreatePasswordViewModel
     
     override func loadView() {
-        view = registerView
+        view = createPasswordView
     }
     
     override func viewDidLoad() {
@@ -24,12 +24,19 @@ class RegisterViewController: UIViewController {
         self.setNavigation()
         
         self.addTargets()
-        self.addDelegates()
+        //self.addDelegates()
         //self.assignRequestClosures()
+        
+        PasswordTextField.appearance().tintColor = .black
     }
     
-    init(view: RegisterView, viewModel: RegisterViewModel) {
-        self.registerViewModel = viewModel
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        _ = createPasswordView.firstPasswordTextField.becomeFirstResponder()
+    }
+    
+    init(view: CreatePasswordView, viewModel: CreatePasswordViewModel) {
+        self.createPasswordViewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,7 +51,7 @@ class RegisterViewController: UIViewController {
         backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
         backButton.imageView?.contentMode = .scaleAspectFit
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
+
         backButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
         backButton.layer.cornerRadius = 10
         backButton.backgroundColor = UIColor(rgb: 0xC0C0C0, alpha: 0.2)
@@ -55,24 +62,41 @@ class RegisterViewController: UIViewController {
 
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
+        let eyeIconButton = UIButton(type: .custom)
+        eyeIconButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
+        eyeIconButton.imageView?.contentMode = .scaleAspectFit
+        eyeIconButton.addTarget(self, action: #selector(eyeButtonTapped(_:)), for: .touchUpInside)
+
+        eyeIconButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
+        eyeIconButton.layer.cornerRadius = 10
+        eyeIconButton.backgroundColor = UIColor(rgb: 0xC0C0C0, alpha: 0.2)
+        
+        let eyeIconButtonItem = UIBarButtonItem(customView: eyeIconButton)
+        navigationItem.rightBarButtonItem = eyeIconButtonItem
     }
-    
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
     
+    @objc func eyeButtonTapped(_ sender:UIButton!) {
+        sender.setImage(UIImage(systemName: createPasswordView.firstPasswordTextField.isSecureTextEntry ? "eye.slash.fill" : "eye.fill"), for: .normal)
+        createPasswordView.firstPasswordTextField.isSecureTextEntry = !createPasswordView.firstPasswordTextField.isSecureTextEntry
+        createPasswordView.secondPasswordTextField.isSecureTextEntry = !createPasswordView.secondPasswordTextField.isSecureTextEntry
+    }
+    
     private func addTargets() {
-        [registerView.createEmailTextField, registerView.createLoginTextField].forEach({
+        [createPasswordView.secondPasswordTextField, createPasswordView.firstPasswordTextField].forEach({
             $0.addTarget(self, action: #selector(isEverythingCorrect(_:)), for: .editingChanged)
         })
-        registerView.nextButton.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
+        createPasswordView.nextButton.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
     }
 
-    private func addDelegates() {
-        registerView.createLoginTextField.delegate = self
-        registerView.createEmailTextField.delegate = self
-    }
+//    private func addDelegates() {
+//        createPasswordView.createLoginTextField.delegate = self
+//        createPasswordView.createEmailTextField.delegate = self
+//    }
     
 //    private func assignRequestClosures() {
 //        self.registerViewModel.onUserRegistered = { [weak self] in
@@ -130,27 +154,27 @@ class RegisterViewController: UIViewController {
         })
     }
 
-    
+
     @objc private func goToNextScreen() {
-        let nextScreen = CreatePasswordViewController(view: CreatePasswordView(), viewModel: CreatePasswordViewModel())
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
-        self.navigationController?.pushViewController(nextScreen, animated: true)
+//        let nextScreen = SendMailController(view: SendMailView(), email: registerView.emailTextField.text ?? "")
+//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+//        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
+//        self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     @objc private func isEverythingCorrect(_ textField: UITextField) {
         guard
-            let login = registerView.createLoginTextField.text, !login.isEmpty,
-            let pass = registerView.createEmailTextField.text, !pass.isEmpty
+            let login = createPasswordView.firstPasswordTextField.text, !login.isEmpty,
+            let pass = createPasswordView.secondPasswordTextField.text, !pass.isEmpty
         else {
-            registerView.nextButton.isEnabled = false
+            createPasswordView.nextButton.isEnabled = false
             return
         }
-        registerView.nextButton.isEnabled = true
+        createPasswordView.nextButton.isEnabled = true
     }
 }
 
-extension RegisterViewController: UITextFieldDelegate {
+extension CreatePasswordViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.isSelected = true
         textField.textColor = .black
