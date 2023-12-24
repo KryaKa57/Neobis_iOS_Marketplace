@@ -24,7 +24,7 @@ class CreatePasswordViewController: UIViewController {
         self.setNavigation()
         
         self.addTargets()
-        //self.addDelegates()
+        self.addDelegates()
         //self.assignRequestClosures()
         
         PasswordTextField.appearance().tintColor = .black
@@ -93,10 +93,10 @@ class CreatePasswordViewController: UIViewController {
         createPasswordView.nextButton.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
     }
 
-//    private func addDelegates() {
-//        createPasswordView.createLoginTextField.delegate = self
-//        createPasswordView.createEmailTextField.delegate = self
-//    }
+    private func addDelegates() {
+        createPasswordView.firstPasswordTextField.delegate = self
+        createPasswordView.secondPasswordTextField.delegate = self
+    }
     
 //    private func assignRequestClosures() {
 //        self.registerViewModel.onUserRegistered = { [weak self] in
@@ -164,40 +164,28 @@ class CreatePasswordViewController: UIViewController {
     
     @objc private func isEverythingCorrect(_ textField: UITextField) {
         guard
-            let login = createPasswordView.firstPasswordTextField.text, !login.isEmpty,
-            let pass = createPasswordView.secondPasswordTextField.text, !pass.isEmpty
+            let first = createPasswordView.firstPasswordTextField.text, !first.isEmpty,
+            let second = createPasswordView.secondPasswordTextField.text, !second.isEmpty,
+            first.count >= 8, second.count >= 8
         else {
+            createPasswordView.removeTextFieldError()
             createPasswordView.nextButton.isEnabled = false
             return
         }
-        createPasswordView.nextButton.isEnabled = true
+        
+        if first == second {
+            createPasswordView.removeTextFieldError()
+            createPasswordView.nextButton.isEnabled = true
+        } else {
+            createPasswordView.displayTextFieldError()
+            createPasswordView.nextButton.isEnabled = false
+        }
+            
+            
     }
 }
 
 extension CreatePasswordViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.isSelected = true
-        textField.textColor = .black
-    }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.isSelected = false
-    }
-    
-    func isValidEmail(_ email: String) -> Bool {
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
-        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-        return emailPred.evaluate(with: email)
-    }
-    
-    func indicesOfValidRequirements(_ password: String) -> [Int] {
-        var indices: [Int] = []
-        if (password.count >= 8 && password.count <= 15) { indices.append(0) }
-        if (password.contains(/[a-z]/) && password.contains(/[A-Z]/)) { indices.append(1) }
-        if (password.contains(/[0-9]/)) { indices.append(2) }
-        if (password.contains(/[^a-zA-Z0-9]/)) { indices.append(3) }
-        return indices
-    }
 }
 

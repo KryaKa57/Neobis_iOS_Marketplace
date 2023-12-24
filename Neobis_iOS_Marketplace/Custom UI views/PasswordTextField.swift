@@ -11,6 +11,7 @@ import SnapKit
 
 class PasswordTextField: UITextField {
     
+    
     required init() {
         super.init(frame: .zero)
         

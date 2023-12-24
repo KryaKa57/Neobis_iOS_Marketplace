@@ -24,6 +24,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: LoginViewController(view: view))
         window?.makeKeyAndVisible()
     }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        
+        let mainViewController = UIViewController()
+        let walletViewController = UIViewController()
+        let messageViewController = UIViewController()
+        let profileViewController = ProfileViewController(view: ProfileView(), viewModel: ProfileViewModel())
+
+        let mainNav = UINavigationController(rootViewController: mainViewController)
+        let walletNav = UINavigationController(rootViewController: walletViewController)
+        let messageNav = UINavigationController(rootViewController: messageViewController)
+        let profileNav = UINavigationController(rootViewController: profileViewController)
+        
+        guard let window = self.window else {
+            return
+        }
+            
+        window.rootViewController = vc
+    }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

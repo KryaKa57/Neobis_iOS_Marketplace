@@ -11,6 +11,7 @@ import SnapKit
 
 class CreatePasswordView: UIView {
     private let systemBounds = UIScreen.main.bounds
+    var checkPasswordHeightConstraint: Constraint!
     
     private let scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -58,7 +59,24 @@ class CreatePasswordView: UIView {
     }()
     
     lazy var firstPasswordTextField = PasswordTextField()
+    
     lazy var secondPasswordTextField = PasswordTextField()
+    lazy var differentPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Пароли не совпадают"
+        label.textColor = .red
+        return label
+    }()
+    
+    lazy var checkPasswordStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.addArrangedSubview(secondPasswordTextField)
+        stack.spacing = 8
+        stack.alignment = .center
+        stack.axis = .vertical
+        stack.distribution = .fill
+        return stack
+    }()
     
     lazy var nextButton = CustomButton(textValue: "Далее", isPrimary: true)
     
@@ -85,9 +103,28 @@ class CreatePasswordView: UIView {
         scrollView.addSubview(createPasswordLabel)
         scrollView.addSubview(requirementsLabel)
         scrollView.addSubview(firstPasswordTextField)
-        scrollView.addSubview(secondPasswordTextField)
+        scrollView.addSubview(checkPasswordStackView)
         scrollView.addSubview(nextButton)
     }
+    
+    
+    public func displayTextFieldError() {
+        firstPasswordTextField.textColor = .red
+        secondPasswordTextField.textColor = .red
+        
+        checkPasswordStackView.addArrangedSubview(differentPasswordLabel)
+        checkPasswordHeightConstraint.deactivate()
+    }
+    
+    public func removeTextFieldError() {
+        firstPasswordTextField.textColor = .black
+        secondPasswordTextField.textColor = .black
+        
+        checkPasswordStackView.removeArrangedSubview(differentPasswordLabel)
+        differentPasswordLabel.removeFromSuperview()
+        checkPasswordHeightConstraint.activate()
+    }
+    
     
     private func setConstraints() {
         self.scrollView.snp.makeConstraints { make in
@@ -113,12 +150,13 @@ class CreatePasswordView: UIView {
             make.top.equalTo(requirementsLabel.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
         }
-        self.secondPasswordTextField.snp.makeConstraints { make in
+        self.checkPasswordStackView.snp.makeConstraints { make in
             make.top.equalTo(firstPasswordTextField.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
+            checkPasswordHeightConstraint = make.height.equalTo(secondPasswordTextField.snp.height).constraint
         }
         self.nextButton.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(secondPasswordTextField.snp.bottom).offset(32)
+            make.top.greaterThanOrEqualTo(checkPasswordStackView.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
             make.bottom.equalToSuperview().inset(32)
         }

@@ -12,6 +12,8 @@ class LoginViewController: UIViewController {
     private var loginView: LoginView
     private var loginViewModel: LoginViewModel
     private let systemBounds = UIScreen.main.bounds
+    
+    var customTabBarController: CustomTabBarController?
 
     override func loadView() {
         view = loginView
@@ -24,6 +26,10 @@ class LoginViewController: UIViewController {
         
         loginView.loginTextField.delegate = self
         loginView.passwordTextField.delegate = self
+        
+        if let tabBarController = UIApplication.shared.keyWindow?.rootViewController as? CustomTabBarController {
+            self.customTabBarController = tabBarController
+        }
     }
     
     init(view: LoginView, viewModel: LoginViewModel = LoginViewModel()) {
@@ -85,11 +91,11 @@ class LoginViewController: UIViewController {
     }
 
     @objc func goToMainScreen() {
-//        let nextScreen = MainController(view: MainView(), isNewUser: false)
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
-//        self.navigationController?.pushViewController(nextScreen, animated: true)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
+        self.navigationController?.pushViewController(CustomTabBarController(), animated: true)        
     }
+    
     
     func showLoginFailurePopUp() {
         let safeAreaTopInset = view.safeAreaInsets.top
