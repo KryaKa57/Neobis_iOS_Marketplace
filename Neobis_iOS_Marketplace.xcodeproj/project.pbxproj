@@ -42,6 +42,13 @@
 		645290D92B34878600855E7E /* ProfileCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290D82B34878600855E7E /* ProfileCellData.swift */; };
 		645290DB2B34D9C600855E7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290DA2B34D9C600855E7E /* TabBarController.swift */; };
 		645290DD2B37F6B000855E7E /* Extension + UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290DC2B37F6B000855E7E /* Extension + UIImage.swift */; };
+		645290DF2B384A6900855E7E /* CustomNavigationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290DE2B384A6900855E7E /* CustomNavigationButton.swift */; };
+		645290E22B384C4A00855E7E /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290E12B384C4A00855E7E /* ProfileEditView.swift */; };
+		645290E42B384C7300855E7E /* ProfileEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290E32B384C7300855E7E /* ProfileEditViewController.swift */; };
+		645290E62B384C8F00855E7E /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290E52B384C8F00855E7E /* ProfileEditViewModel.swift */; };
+		645290F42B38B4D200855E7E /* ProfileEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290F32B38B4D200855E7E /* ProfileEditCell.swift */; };
+		645290F82B38B53400855E7E /* ProfileEditCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290F72B38B53400855E7E /* ProfileEditCellData.swift */; };
+		645290FA2B38B55000855E7E /* TextFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290F92B38B55000855E7E /* TextFieldData.swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +92,13 @@
 		645290D82B34878600855E7E /* ProfileCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCellData.swift; sourceTree = "<group>"; };
 		645290DA2B34D9C600855E7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		645290DC2B37F6B000855E7E /* Extension + UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIImage.swift"; sourceTree = "<group>"; };
+		645290DE2B384A6900855E7E /* CustomNavigationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationButton.swift; sourceTree = "<group>"; };
+		645290E12B384C4A00855E7E /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		645290E32B384C7300855E7E /* ProfileEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewController.swift; sourceTree = "<group>"; };
+		645290E52B384C8F00855E7E /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
+		645290F32B38B4D200855E7E /* ProfileEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCell.swift; sourceTree = "<group>"; };
+		645290F72B38B53400855E7E /* ProfileEditCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCellData.swift; sourceTree = "<group>"; };
+		645290F92B38B55000855E7E /* TextFieldData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldData.swift; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				645290DA2B34D9C600855E7E /* TabBarController.swift */,
+				645290E02B384C2B00855E7E /* ProfileEditScreen */,
 				645290CF2B346FAF00855E7E /* ProfileScreen */,
 				645290C62B32400E00855E7E /* CreatePasswordScreen */,
 				645290BF2B320CD400855E7E /* RegisterScreen */,
@@ -181,6 +196,7 @@
 				645290CD2B3249B500855E7E /* PasswordTextField.swift */,
 				645290A12B31EAEA00855E7E /* CustomButton.swift */,
 				645290A52B31EB0000855E7E /* CustomLabel.swift */,
+				645290DE2B384A6900855E7E /* CustomNavigationButton.swift */,
 			);
 			path = "Custom UI views";
 			sourceTree = "<group>";
@@ -233,6 +249,19 @@
 				645290D82B34878600855E7E /* ProfileCellData.swift */,
 			);
 			path = ProfileScreen;
+			sourceTree = "<group>";
+		};
+		645290E02B384C2B00855E7E /* ProfileEditScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645290E12B384C4A00855E7E /* ProfileEditView.swift */,
+				645290E32B384C7300855E7E /* ProfileEditViewController.swift */,
+				645290E52B384C8F00855E7E /* ProfileEditViewModel.swift */,
+				645290F32B38B4D200855E7E /* ProfileEditCell.swift */,
+				645290F72B38B53400855E7E /* ProfileEditCellData.swift */,
+				645290F92B38B55000855E7E /* TextFieldData.swift */,
+			);
+			path = ProfileEditScreen;
 			sourceTree = "<group>";
 		};
 		BBF8B66A05C07C1B1771810A /* Frameworks */ = {
@@ -373,11 +402,13 @@
 				645290CA2B32404600855E7E /* CreatePasswordView.swift in Sources */,
 				645290C12B320CEC00855E7E /* RegisterViewController.swift in Sources */,
 				645290A42B31EAF700855E7E /* CustomTextField.swift in Sources */,
+				645290DF2B384A6900855E7E /* CustomNavigationButton.swift in Sources */,
 				6452908A2B31E0B800855E7E /* LoginViewController.swift in Sources */,
 				645290C82B32402C00855E7E /* CreatePasswordViewController.swift in Sources */,
 				645290D32B346FD900855E7E /* ProfileViewController.swift in Sources */,
 				645290862B31E0B800855E7E /* AppDelegate.swift in Sources */,
 				645290A22B31EAEA00855E7E /* CustomButton.swift in Sources */,
+				645290F42B38B4D200855E7E /* ProfileEditCell.swift in Sources */,
 				6452909C2B31EA6A00855E7E /* LoginView.swift in Sources */,
 				645290D12B346FC600855E7E /* ProfileView.swift in Sources */,
 				645290DB2B34D9C600855E7E /* TabBarController.swift in Sources */,
@@ -385,11 +416,16 @@
 				645290D72B347EA900855E7E /* ProfileTableViewCell.swift in Sources */,
 				645290882B31E0B800855E7E /* SceneDelegate.swift in Sources */,
 				6452909F2B31EA9A00855E7E /* Extension + UIColor.swift in Sources */,
+				645290FA2B38B55000855E7E /* TextFieldData.swift in Sources */,
 				645290A62B31EB0000855E7E /* CustomLabel.swift in Sources */,
 				645290DD2B37F6B000855E7E /* Extension + UIImage.swift in Sources */,
+				645290F82B38B53400855E7E /* ProfileEditCellData.swift in Sources */,
 				645290CC2B32409E00855E7E /* CreatePasswordViewModel.swift in Sources */,
+				645290E22B384C4A00855E7E /* ProfileEditView.swift in Sources */,
 				645290CE2B3249B500855E7E /* PasswordTextField.swift in Sources */,
+				645290E42B384C7300855E7E /* ProfileEditViewController.swift in Sources */,
 				645290A82B31EB2300855E7E /* LoginViewModel.swift in Sources */,
+				645290E62B384C8F00855E7E /* ProfileEditViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,9 +563,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2CT3M99U7;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Neobis_iOS_Marketplace/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -543,6 +579,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Kr57.Neobis-iOS-Marketplace";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -555,9 +592,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2CT3M99U7;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Neobis_iOS_Marketplace/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -571,6 +608,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Kr57.Neobis-iOS-Marketplace";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -80,7 +80,7 @@ class RegisterView: UIView {
     private func setConstraints() {
         self.scrollView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview().constraint
+            make.bottom.equalToSuperview()
         }
         self.cartImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(systemBounds.height * 0.05)

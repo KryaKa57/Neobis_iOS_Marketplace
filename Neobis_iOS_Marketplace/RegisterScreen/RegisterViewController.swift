@@ -40,14 +40,9 @@ class RegisterViewController: UIViewController {
     private func setNavigation() {
         self.navigationItem.title = "Регистрация"
         
-        let backButton = UIButton(type: .custom)
+        let backButton = CustomNavigationButton()
         backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.imageView?.contentMode = .scaleAspectFit
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        backButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-        backButton.layer.cornerRadius = 10
-        backButton.backgroundColor = UIColor(rgb: 0xC0C0C0, alpha: 0.2)
         
         let backButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = backButtonItem
@@ -55,6 +50,7 @@ class RegisterViewController: UIViewController {
 
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
     }
     
     
@@ -133,8 +129,6 @@ class RegisterViewController: UIViewController {
     
     @objc private func goToNextScreen() {
         let nextScreen = CreatePasswordViewController(view: CreatePasswordView(), viewModel: CreatePasswordViewModel())
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     

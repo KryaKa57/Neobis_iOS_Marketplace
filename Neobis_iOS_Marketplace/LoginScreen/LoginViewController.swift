@@ -91,8 +91,6 @@ class LoginViewController: UIViewController {
     }
 
     @objc func goToMainScreen() {
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
         self.navigationController?.pushViewController(CustomTabBarController(), animated: true)        
     }
     

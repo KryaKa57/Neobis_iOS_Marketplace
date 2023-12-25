@@ -21,13 +21,31 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setNavigation()
         self.addTargets()
         self.addDelegates()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.navigationItem.title = "Профиль"
+        
+        let changeProfileButton = CustomNavigationButton()
+        
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
+                              NSAttributedString.Key.font:UIFont(name: "gothampro", size: 14)]
+        
+        changeProfileButton.setAttributedTitle(NSAttributedString(string: "Изм.", attributes: textAttributes as [NSAttributedString.Key : Any]), for: .normal)
+        changeProfileButton.addTarget(self, action: #selector(changeButtonTapped(_:)), for: .touchUpInside)
+            
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
+            
+        let eyeIconButtonItem = UIBarButtonItem(customView: changeProfileButton)
+        self.tabBarController?.navigationItem.rightBarButtonItem = eyeIconButtonItem
+        self.tabBarController?.navigationItem.leftBarButtonItem?.isHidden = true
     }
     
     init(view: ProfileView, viewModel: ProfileViewModel) {
@@ -39,28 +57,10 @@ class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setNavigation() {
-        self.navigationItem.title = "Профиль"
-        
-        let changeProfileButton = UIButton(type: .custom)
-        changeProfileButton.setTitle("Изм.", for: .normal)
-        changeProfileButton.setTitleColor(.black, for: .normal)
-        changeProfileButton.imageView?.contentMode = .scaleAspectFit
-        changeProfileButton.addTarget(self, action: #selector(changeButtonTapped(_:)), for: .touchUpInside)
-        
-        changeProfileButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-        changeProfileButton.layer.cornerRadius = 10
-        changeProfileButton.backgroundColor = UIColor(rgb: 0xC0C0C0, alpha: 0.2)
-        
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
-        navigationController?.navigationBar.titleTextAttributes = textAttributes
-        
-        let eyeIconButtonItem = UIBarButtonItem(customView: changeProfileButton)
-        navigationItem.rightBarButtonItem = eyeIconButtonItem
-    }
     
     @objc func changeButtonTapped(_ sender:UIButton!) {
-        
+        let nextScreen = ProfileEditViewController(view: ProfileEditView(), viewModel: ProfileEditViewModel())
+        self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     private func addTargets() {

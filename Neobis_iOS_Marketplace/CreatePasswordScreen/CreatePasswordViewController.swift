@@ -47,14 +47,9 @@ class CreatePasswordViewController: UIViewController {
     private func setNavigation() {
         self.navigationItem.title = "Регистрация"
         
-        let backButton = UIButton(type: .custom)
+        let backButton = CustomNavigationButton()
         backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.imageView?.contentMode = .scaleAspectFit
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-
-        backButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-        backButton.layer.cornerRadius = 10
-        backButton.backgroundColor = UIColor(rgb: 0xC0C0C0, alpha: 0.2)
         
         let backButtonItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = backButtonItem
@@ -63,15 +58,10 @@ class CreatePasswordViewController: UIViewController {
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        let eyeIconButton = UIButton(type: .custom)
+        let eyeIconButton = CustomNavigationButton()
         eyeIconButton.setImage(UIImage(systemName: "eye.slash.fill"), for: .normal)
-        eyeIconButton.imageView?.contentMode = .scaleAspectFit
         eyeIconButton.addTarget(self, action: #selector(eyeButtonTapped(_:)), for: .touchUpInside)
 
-        eyeIconButton.frame = CGRect(x: 0, y: 0, width: 50, height: 30)
-        eyeIconButton.layer.cornerRadius = 10
-        eyeIconButton.backgroundColor = UIColor(rgb: 0xC0C0C0, alpha: 0.2)
-        
         let eyeIconButtonItem = UIBarButtonItem(customView: eyeIconButton)
         navigationItem.rightBarButtonItem = eyeIconButtonItem
     }

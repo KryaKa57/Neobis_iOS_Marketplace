@@ -1,15 +1,15 @@
 //
-//  ProfileView.swift
-//  neobis_ios_auth
+//  ProfileEditView.swift
+//  Neobis_iOS_Marketplace
 //
-//  Created by Alisher on 06.12.2023.
+//  Created by Alisher on 24.12.2023.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-class ProfileView: UIView {
+class ProfileEditView: UIView {
     private let systemBounds = UIScreen.main.bounds
     
     lazy var profilePhotoImageView: UIImageView = {
@@ -20,12 +20,13 @@ class ProfileView: UIView {
         return image
     }()
     
-    lazy var userNameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Алеся"
-        label.textColor = .black
-        label.font = UIFont(name: "gothampro", size: 18)
-        return label
+    lazy var choosePhotoButton: UIButton = {
+        let button = UIButton()
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor(rgb: 0x5458EA),
+                              NSAttributedString.Key.font:UIFont(name: "gothampro", size: 18)]
+        let attributedText = NSAttributedString(string: "Выбрать фотографию", attributes: textAttributes as [NSAttributedString.Key : Any])
+        button.setAttributedTitle(attributedText, for: .normal)
+        return button
     }()
     
     lazy var profilePhotoStackView: UIStackView = {
@@ -35,7 +36,7 @@ class ProfileView: UIView {
         stack.axis = .vertical
         stack.distribution = .fill
         stack.addArrangedSubview(profilePhotoImageView)
-        stack.addArrangedSubview(userNameLabel)
+        stack.addArrangedSubview(choosePhotoButton)
         return stack
     }()
     
@@ -43,7 +44,7 @@ class ProfileView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(rgb: 0xF7F6F9)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ProfileCell.self, forCellReuseIdentifier: ProfileCell.identifier)
+        tableView.register(ProfileEditCell.self, forCellReuseIdentifier: ProfileEditCell.identifier)
         return tableView
     }()
     
@@ -54,18 +55,6 @@ class ProfileView: UIView {
         stack.axis = .vertical
         stack.distribution = .fill
         return stack
-    }()
-    
-    lazy var endRegistrationLabel: UIButton = {
-        let button = UIButton()
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
-                               NSAttributedString.Key.font: UIFont(name: "gothampro-medium", size: 14)]
-        let attributedText = NSAttributedString(string: "Закончить регистрацию", attributes: titleAttributes as [NSAttributedString.Key : Any])
-        
-        button.setAttributedTitle(attributedText, for: .normal)
-        button.backgroundColor = UIColor(rgb: 0x5458EA)
-        button.layer.cornerRadius = 25
-        return button
     }()
     
     override init(frame: CGRect) {
@@ -82,7 +71,6 @@ class ProfileView: UIView {
         backgroundColor = UIColor(rgb: 0xF7F6F9)
         self.addSubview(profilePhotoStackView)
         self.addSubview(tableView)
-        self.addSubview(endRegistrationLabel)
     }
     
     private func setConstraints() {
@@ -94,22 +82,15 @@ class ProfileView: UIView {
             make.width.height.equalTo(systemBounds.width/5)
         }
         
-        self.userNameLabel.snp.makeConstraints { make in
+        self.choosePhotoButton.snp.makeConstraints { make in
             make.height.equalTo(systemBounds.width/8)
         }
         
         self.tableView.snp.makeConstraints { make in
             make.top.equalTo(profilePhotoStackView.snp.bottom)
             make.centerX.equalToSuperview()
-            make.width.equalTo(systemBounds.width - 48)
-            make.height.equalTo(300)
-        }
-        self.endRegistrationLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(systemBounds.width - 48)
-            make.height.equalTo(48)
-            make.bottom.equalToSuperview().offset(-systemBounds.height * 0.15)
+            make.width.equalTo(systemBounds.width - 64)
+            make.height.equalTo(800)
         }
     }
 }
-

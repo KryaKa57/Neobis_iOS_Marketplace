@@ -44,15 +44,11 @@ class ProfileCell: UITableViewCell {
         cellImageView.contentMode = .center
         
         cellTextLabel.textColor = .black
+        cellTextLabel.font = UIFont(name: "gothampro-medium", size: 14)
         
         iconImageView.image = UIImage(systemName: "chevron.right")
         iconImageView.tintColor = .black
         iconImageView.contentMode = .scaleAspectFit
-        
-        contentView.snp.makeConstraints { make in
-            make.height.equalTo(60)
-        }
-        
         
         
         cellImageView.snp.makeConstraints { make in
