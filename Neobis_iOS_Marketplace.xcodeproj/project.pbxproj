@@ -49,6 +49,13 @@
 		645290F42B38B4D200855E7E /* ProfileEditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290F32B38B4D200855E7E /* ProfileEditCell.swift */; };
 		645290F82B38B53400855E7E /* ProfileEditCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290F72B38B53400855E7E /* ProfileEditCellData.swift */; };
 		645290FA2B38B55000855E7E /* TextFieldData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290F92B38B55000855E7E /* TextFieldData.swift */; };
+		645290FD2B3A7A9500855E7E /* VerificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290FC2B3A7A9500855E7E /* VerificationViewController.swift */; };
+		645290FF2B3A7ADC00855E7E /* VerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645290FE2B3A7ADC00855E7E /* VerificationView.swift */; };
+		645291012B3A7B8C00855E7E /* VerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291002B3A7B8C00855E7E /* VerificationViewModel.swift */; };
+		645291042B3D6A8C00855E7E /* RecoveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291032B3D6A8C00855E7E /* RecoveyViewController.swift */; };
+		645291062B3D6AA100855E7E /* RecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291052B3D6AA100855E7E /* RecoveryView.swift */; };
+		645291082B3D6AB700855E7E /* RecoveryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291072B3D6AB700855E7E /* RecoveryViewModel.swift */; };
+		6452910A2B3D830A00855E7E /* CodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291092B3D830A00855E7E /* CodeInputView.swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +106,13 @@
 		645290F32B38B4D200855E7E /* ProfileEditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCell.swift; sourceTree = "<group>"; };
 		645290F72B38B53400855E7E /* ProfileEditCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditCellData.swift; sourceTree = "<group>"; };
 		645290F92B38B55000855E7E /* TextFieldData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldData.swift; sourceTree = "<group>"; };
+		645290FC2B3A7A9500855E7E /* VerificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewController.swift; sourceTree = "<group>"; };
+		645290FE2B3A7ADC00855E7E /* VerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationView.swift; sourceTree = "<group>"; };
+		645291002B3A7B8C00855E7E /* VerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerificationViewModel.swift; sourceTree = "<group>"; };
+		645291032B3D6A8C00855E7E /* RecoveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveyViewController.swift; sourceTree = "<group>"; };
+		645291052B3D6AA100855E7E /* RecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryView.swift; sourceTree = "<group>"; };
+		645291072B3D6AB700855E7E /* RecoveryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecoveryViewModel.swift; sourceTree = "<group>"; };
+		645291092B3D830A00855E7E /* CodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeInputView.swift; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				645290DA2B34D9C600855E7E /* TabBarController.swift */,
+				645291022B3D6A6F00855E7E /* RecoveryScreen */,
+				645290FB2B3A749600855E7E /* VerficiationScreen */,
 				645290E02B384C2B00855E7E /* ProfileEditScreen */,
 				645290CF2B346FAF00855E7E /* ProfileScreen */,
 				645290C62B32400E00855E7E /* CreatePasswordScreen */,
@@ -262,6 +278,27 @@
 				645290F92B38B55000855E7E /* TextFieldData.swift */,
 			);
 			path = ProfileEditScreen;
+			sourceTree = "<group>";
+		};
+		645290FB2B3A749600855E7E /* VerficiationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645290FC2B3A7A9500855E7E /* VerificationViewController.swift */,
+				645290FE2B3A7ADC00855E7E /* VerificationView.swift */,
+				645291002B3A7B8C00855E7E /* VerificationViewModel.swift */,
+			);
+			path = VerficiationScreen;
+			sourceTree = "<group>";
+		};
+		645291022B3D6A6F00855E7E /* RecoveryScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645291032B3D6A8C00855E7E /* RecoveyViewController.swift */,
+				645291052B3D6AA100855E7E /* RecoveryView.swift */,
+				645291092B3D830A00855E7E /* CodeInputView.swift */,
+				645291072B3D6AB700855E7E /* RecoveryViewModel.swift */,
+			);
+			path = RecoveryScreen;
 			sourceTree = "<group>";
 		};
 		BBF8B66A05C07C1B1771810A /* Frameworks */ = {
@@ -400,9 +437,12 @@
 				645290D52B346FE900855E7E /* ProfileViewModel.swift in Sources */,
 				645290D92B34878600855E7E /* ProfileCellData.swift in Sources */,
 				645290CA2B32404600855E7E /* CreatePasswordView.swift in Sources */,
+				645291042B3D6A8C00855E7E /* RecoveyViewController.swift in Sources */,
 				645290C12B320CEC00855E7E /* RegisterViewController.swift in Sources */,
 				645290A42B31EAF700855E7E /* CustomTextField.swift in Sources */,
+				645291012B3A7B8C00855E7E /* VerificationViewModel.swift in Sources */,
 				645290DF2B384A6900855E7E /* CustomNavigationButton.swift in Sources */,
+				6452910A2B3D830A00855E7E /* CodeInputView.swift in Sources */,
 				6452908A2B31E0B800855E7E /* LoginViewController.swift in Sources */,
 				645290C82B32402C00855E7E /* CreatePasswordViewController.swift in Sources */,
 				645290D32B346FD900855E7E /* ProfileViewController.swift in Sources */,
@@ -411,17 +451,21 @@
 				645290F42B38B4D200855E7E /* ProfileEditCell.swift in Sources */,
 				6452909C2B31EA6A00855E7E /* LoginView.swift in Sources */,
 				645290D12B346FC600855E7E /* ProfileView.swift in Sources */,
+				645290FF2B3A7ADC00855E7E /* VerificationView.swift in Sources */,
 				645290DB2B34D9C600855E7E /* TabBarController.swift in Sources */,
 				645290C52B320D0900855E7E /* RegisterViewModel.swift in Sources */,
 				645290D72B347EA900855E7E /* ProfileTableViewCell.swift in Sources */,
+				645291082B3D6AB700855E7E /* RecoveryViewModel.swift in Sources */,
 				645290882B31E0B800855E7E /* SceneDelegate.swift in Sources */,
 				6452909F2B31EA9A00855E7E /* Extension + UIColor.swift in Sources */,
 				645290FA2B38B55000855E7E /* TextFieldData.swift in Sources */,
 				645290A62B31EB0000855E7E /* CustomLabel.swift in Sources */,
 				645290DD2B37F6B000855E7E /* Extension + UIImage.swift in Sources */,
+				645290FD2B3A7A9500855E7E /* VerificationViewController.swift in Sources */,
 				645290F82B38B53400855E7E /* ProfileEditCellData.swift in Sources */,
 				645290CC2B32409E00855E7E /* CreatePasswordViewModel.swift in Sources */,
 				645290E22B384C4A00855E7E /* ProfileEditView.swift in Sources */,
+				645291062B3D6AA100855E7E /* RecoveryView.swift in Sources */,
 				645290CE2B3249B500855E7E /* PasswordTextField.swift in Sources */,
 				645290E42B384C7300855E7E /* ProfileEditViewController.swift in Sources */,
 				645290A82B31EB2300855E7E /* LoginViewModel.swift in Sources */,

@@ -56,7 +56,7 @@ class ProfileView: UIView {
         return stack
     }()
     
-    lazy var endRegistrationLabel: UIButton = {
+    lazy var endRegistrationButton: UIButton = {
         let button = UIButton()
         let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white,
                                NSAttributedString.Key.font: UIFont(name: "gothampro-medium", size: 14)]
@@ -82,7 +82,7 @@ class ProfileView: UIView {
         backgroundColor = UIColor(rgb: 0xF7F6F9)
         self.addSubview(profilePhotoStackView)
         self.addSubview(tableView)
-        self.addSubview(endRegistrationLabel)
+        self.addSubview(endRegistrationButton)
     }
     
     private func setConstraints() {
@@ -104,7 +104,7 @@ class ProfileView: UIView {
             make.width.equalTo(systemBounds.width - 48)
             make.height.equalTo(300)
         }
-        self.endRegistrationLabel.snp.makeConstraints { make in
+        self.endRegistrationButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.width.equalTo(systemBounds.width - 48)
             make.height.equalTo(48)

@@ -17,6 +17,7 @@ class ProfileEditView: UIView {
         image.image = UIImage(named: "user")
         image.backgroundColor = UIColor(rgb: 0x5458EA)
         image.layer.cornerRadius = systemBounds.width/10
+        image.layer.masksToBounds = true
         return image
     }()
     

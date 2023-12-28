@@ -97,6 +97,7 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
         guard let image = info[.editedImage] as? UIImage else { return }
         
         profileEditView.profilePhotoImageView.image = image
+        
         dismiss(animated: true)
     }
     

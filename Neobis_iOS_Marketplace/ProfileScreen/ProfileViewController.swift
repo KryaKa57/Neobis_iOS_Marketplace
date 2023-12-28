@@ -64,7 +64,12 @@ class ProfileViewController: UIViewController {
     }
     
     private func addTargets() {
-        
+        profileView.endRegistrationButton.addTarget(self, action: #selector(registerPhoneButtonTapped(_:)), for: .touchUpInside)
+    }
+                                                    
+    @objc func registerPhoneButtonTapped (_ sender:UIButton!) {
+        let nextScreen = VerificationViewController(view: VerificationView(), viewModel: VerificationViewModel())
+        self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     private func addDelegates() {
