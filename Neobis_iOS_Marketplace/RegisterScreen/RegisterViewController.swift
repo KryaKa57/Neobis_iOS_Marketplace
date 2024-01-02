@@ -25,7 +25,6 @@ class RegisterViewController: UIViewController {
         
         self.addTargets()
         self.addDelegates()
-        //self.assignRequestClosures()
     }
     
     init(view: RegisterView, viewModel: RegisterViewModel) {
@@ -60,7 +59,7 @@ class RegisterViewController: UIViewController {
     
     private func addTargets() {
         [registerView.createEmailTextField, registerView.createLoginTextField].forEach({
-            $0.addTarget(self, action: #selector(isEverythingCorrect(_:)), for: .editingChanged)
+            $0.addTarget(self, action: #selector(isFilled(_:)), for: .editingChanged)
         })
         registerView.nextButton.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
     }
@@ -70,69 +69,17 @@ class RegisterViewController: UIViewController {
         registerView.createEmailTextField.delegate = self
     }
     
-//    private func assignRequestClosures() {
-//        self.registerViewModel.onUserRegistered = { [weak self] in
-//            DispatchQueue.main.async {
-//                self?.goToNextScreen()
-//            }
-//        }
-//        self.registerViewModel.onErrorMessage = { [weak self] error in
-//            DispatchQueue.main.async {
-//                if error == .invalidData {
-//                    self?.showLoginFailurePopUp("Пользователь с таким логином или почтой уже существует")
-//                } else {
-//                    self?.showLoginFailurePopUp("Что-то пошло не так :/")
-//                }
-//            }
-//        }
-//    }
-//
-//    @objc private func postData(_ button: UIButton) {
-//        let registerData = Register(username: registerView.createLoginTextField.text ?? ""
-//                                    , email: registerView.emailTextField.text ?? ""
-//                                    , password1: registerView.createPassTextField.text ?? ""
-//                                    , password2: registerView.createPassTextField.text ?? "")
-//        registerViewModel.postData(data: registerData)
-//    }
-    
-    
-    func showLoginFailurePopUp(_ errorText: String) {
-        let safeAreaTopInset = view.safeAreaInsets.top
-        let popUpView = UIView(frame: CGRect(x: 32, y: safeAreaTopInset - 64 , width: view.frame.width - 64, height: 64))
-        
-        popUpView.layer.borderWidth = 1.0
-        popUpView.layer.borderColor = UIColor.red.cgColor
-        popUpView.layer.cornerRadius = 16
-        popUpView.backgroundColor = .white
-        
-        let messageLabel = UILabel(frame: CGRect(x: 16, y: 0, width: popUpView.frame.width, height: popUpView.frame.height))
-        messageLabel.text = errorText
-        messageLabel.textColor = .red // Red text color
-        messageLabel.numberOfLines = 0
-        
-        popUpView.addSubview(messageLabel)
-        view.addSubview(popUpView)
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
-            popUpView.frame.origin.y = safeAreaTopInset
-        }, completion: { _ in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                UIView.animate(withDuration: 0.5, animations: {
-                    popUpView.frame.origin.y = safeAreaTopInset - 64
-                }, completion: { _ in
-                    popUpView.removeFromSuperview()
-                })
-            }
-        })
-    }
-
-    
     @objc private func goToNextScreen() {
-        let nextScreen = CreatePasswordViewController(view: CreatePasswordView(), viewModel: CreatePasswordViewModel())
+        guard let login = registerView.createLoginTextField.text else { return }
+        guard let email = registerView.createEmailTextField.text else { return }
+        
+        let nextScreen = CreatePasswordViewController(view: CreatePasswordView(), viewModel: CreatePasswordViewModel(), data: [login, email])
+        
+        
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
-    @objc private func isEverythingCorrect(_ textField: UITextField) {
+    @objc private func isFilled(_ textField: UITextField) {
         guard
             let login = registerView.createLoginTextField.text, !login.isEmpty,
             let pass = registerView.createEmailTextField.text, !pass.isEmpty

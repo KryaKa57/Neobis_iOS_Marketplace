@@ -12,7 +12,7 @@ import SnapKit
 class RegisterView: UIView {
     private let systemBounds = UIScreen.main.bounds
     
-    private let scrollView: UIScrollView = {
+    private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController {
     let profileViewModel: ProfileViewModel
     
     override func loadView() {
+        //profileView.configure(username: )
         view = profileView
     }
     

@@ -8,6 +8,22 @@
 import Foundation
 
 class LoginViewModel {
+    var onUserLogined: (() -> Void)?
+    var onErrorMessage: ((NetworkError) -> Void)?
+    
+    func postData(_ data: Login) {
+        let endpoint = Endpoint.postLogin()
+        let requestData = try? JSONEncoder().encode(data)
+        
+        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] result in
+            switch result {
+            case .success:
+                self?.onUserLogined?()
+            case .failure(let error):
+                self?.onErrorMessage?(error)
+            }
+        }
+    }
 }
 
 

@@ -22,7 +22,6 @@ class ProfileView: UIView {
     
     lazy var userNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Алеся"
         label.textColor = .black
         label.font = UIFont(name: "gothampro", size: 18)
         return label
@@ -39,7 +38,7 @@ class ProfileView: UIView {
         return stack
     }()
     
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(rgb: 0xF7F6F9)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -110,6 +109,10 @@ class ProfileView: UIView {
             make.height.equalTo(48)
             make.bottom.equalToSuperview().offset(-systemBounds.height * 0.15)
         }
+    }
+    
+    func configure(username: String) {
+        userNameLabel.text = username
     }
 }
 

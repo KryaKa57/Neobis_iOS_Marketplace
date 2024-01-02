@@ -15,6 +15,8 @@ class CreatePasswordViewController: UIViewController {
     let createPasswordView = CreatePasswordView()
     let createPasswordViewModel: CreatePasswordViewModel
     
+    let loginEmail: [String]
+    
     override func loadView() {
         view = createPasswordView
     }
@@ -25,7 +27,7 @@ class CreatePasswordViewController: UIViewController {
         
         self.addTargets()
         self.addDelegates()
-        //self.assignRequestClosures()
+        self.assignRequestClosures()
         
         PasswordTextField.appearance().tintColor = .black
     }
@@ -35,8 +37,9 @@ class CreatePasswordViewController: UIViewController {
         _ = createPasswordView.firstPasswordTextField.becomeFirstResponder()
     }
     
-    init(view: CreatePasswordView, viewModel: CreatePasswordViewModel) {
+    init(view: CreatePasswordView, viewModel: CreatePasswordViewModel, data: [String]) {
         self.createPasswordViewModel = viewModel
+        self.loginEmail = data
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -80,7 +83,7 @@ class CreatePasswordViewController: UIViewController {
         [createPasswordView.secondPasswordTextField, createPasswordView.firstPasswordTextField].forEach({
             $0.addTarget(self, action: #selector(isEverythingCorrect(_:)), for: .editingChanged)
         })
-        createPasswordView.nextButton.addTarget(self, action: #selector(goToNextScreen), for: .touchUpInside)
+        createPasswordView.nextButton.addTarget(self, action: #selector(postData(_:)), for: .touchUpInside)
     }
 
     private func addDelegates() {
@@ -88,30 +91,30 @@ class CreatePasswordViewController: UIViewController {
         createPasswordView.secondPasswordTextField.delegate = self
     }
     
-//    private func assignRequestClosures() {
-//        self.registerViewModel.onUserRegistered = { [weak self] in
-//            DispatchQueue.main.async {
-//                self?.goToNextScreen()
-//            }
-//        }
-//        self.registerViewModel.onErrorMessage = { [weak self] error in
-//            DispatchQueue.main.async {
-//                if error == .invalidData {
-//                    self?.showLoginFailurePopUp("Пользователь с таким логином или почтой уже существует")
-//                } else {
-//                    self?.showLoginFailurePopUp("Что-то пошло не так :/")
-//                }
-//            }
-//        }
-//    }
-//
-//    @objc private func postData(_ button: UIButton) {
-//        let registerData = Register(username: registerView.createLoginTextField.text ?? ""
-//                                    , email: registerView.emailTextField.text ?? ""
-//                                    , password1: registerView.createPassTextField.text ?? ""
-//                                    , password2: registerView.createPassTextField.text ?? "")
-//        registerViewModel.postData(data: registerData)
-//    }
+    private func assignRequestClosures() {
+        self.createPasswordViewModel.onUserRegistered = { [weak self] in
+            DispatchQueue.main.async {
+                self?.goToNextScreen()
+            }
+        }
+        self.createPasswordViewModel.onErrorMessage = { [weak self] error in
+            DispatchQueue.main.async {
+                if error == .invalidData {
+                    self?.showLoginFailurePopUp("Пользователь с таким логином или почтой уже существует")
+                } else {
+                    self?.showLoginFailurePopUp("Что-то пошло не так :/")
+                }
+            }
+        }
+    }
+    
+    @objc private func postData(_ button: UIButton) {
+        let registerData = Register(username: loginEmail.first ?? ""
+                                    , email: loginEmail.last ?? ""
+                                    , password1: createPasswordView.firstPasswordTextField.text ?? ""
+                                    , password2: createPasswordView.secondPasswordTextField.text ?? "")
+        createPasswordViewModel.postData(data: registerData)
+    }
     
     
     func showLoginFailurePopUp(_ errorText: String) {
@@ -146,10 +149,7 @@ class CreatePasswordViewController: UIViewController {
 
 
     @objc private func goToNextScreen() {
-//        let nextScreen = SendMailController(view: SendMailView(), email: registerView.emailTextField.text ?? "")
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//        self.navigationController?.navigationBar.tintColor = UIColor(rgb: 0x000000, alpha: 0)
-//        self.navigationController?.pushViewController(nextScreen, animated: true)
+        self.navigationController?.pushViewController(CustomTabBarController(), animated: true)
     }
     
     @objc private func isEverythingCorrect(_ textField: UITextField) {

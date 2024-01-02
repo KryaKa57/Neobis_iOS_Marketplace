@@ -43,7 +43,6 @@ open class CodeInputView: UIView, UIKeyInput {
   public var hasText: Bool { nextTag > 1 ? true : false }
 
   open func insertText(_ text: String) {
-      print(text)
     if nextTag < 5 {
       (viewWithTag(nextTag)! as! UILabel).text = text
       nextTag += 1

@@ -13,7 +13,7 @@ class VerificationView: UIView {
     private let systemBounds = UIScreen.main.bounds
     
     
-    let phoneIconImageView: UIImageView = {
+    lazy var  phoneIconImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "phone.fill")?
                         .resize(targetSize: CGSize(width: 45, height: 45))
@@ -25,7 +25,7 @@ class VerificationView: UIView {
         return imageView
     }()
     
-    let mainLabel: UILabel = {
+    lazy var  mainLabel: UILabel = {
         let label = UILabel()
         label.text = "Введите номер телефона"
         label.textAlignment = .center
@@ -34,7 +34,7 @@ class VerificationView: UIView {
         return label
     }()
     
-    let secondaryLabel: UILabel = {
+    lazy var  secondaryLabel: UILabel = {
         let label = UILabel()
         label.text = "Мы отправим вам СМС с кодом подтверждения"
         label.textAlignment = .center
@@ -44,7 +44,7 @@ class VerificationView: UIView {
         return label
     }()
     
-    let phoneTextField: UITextField = {
+    lazy var  phoneTextField: UITextField = {
         let textField = UITextField()
         let mainAttributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: UIColor.gray,
@@ -78,7 +78,7 @@ class VerificationView: UIView {
     }
     
     private func initialize() {
-        backgroundColor = UIColor(rgb: 0xF7F6F9)
+        backgroundColor = .white
         nextButton.isEnabled = false
         self.addSubview(phoneIconImageView)
         self.addSubview(mainLabel)
