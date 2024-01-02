@@ -23,8 +23,8 @@ class CustomTabBarController: UITabBarController {
         navigationController?.navigationBar.tintColor = .black
         
         let mainViewController = UIViewController()
-        let homeImage = UIImage(named: "home-tabbar")?.resize(targetSize: CGSize(width: 25, height: 25))
         mainViewController.view.backgroundColor = .white
+        let homeImage = UIImage(named: "home-tabbar")?.resize(targetSize: CGSize(width: 25, height: 25))
         mainViewController.tabBarItem = UITabBarItem(title: "Главная", image: homeImage, tag: 0)
 
         let walletViewController = UIViewController()

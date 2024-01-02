@@ -22,7 +22,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addTargets()
-        //self.assignRequestClosures()
+        self.assignRequestClosures()
         
         loginView.loginTextField.delegate = self
         loginView.passwordTextField.delegate = self
@@ -42,21 +42,21 @@ class LoginViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    private func assignRequestClosures() {
-//        self.loginViewModel.onUserLogined = { [weak self] in
-//            DispatchQueue.main.async {
-//                self?.goToMainScreen()
-//            }
-//        }
-//        self.loginViewModel.onErrorMessage = { [weak self] error in
-//            DispatchQueue.main.async {
-//                self?.showLoginFailurePopUp()
-//            }
-//        }
-//    }
+    private func assignRequestClosures() {
+        self.loginViewModel.onUserLogined = { [weak self] in
+            DispatchQueue.main.async {
+                self?.goToMainScreen()
+            }
+        }
+        self.loginViewModel.onErrorMessage = { [weak self] error in
+            DispatchQueue.main.async {
+                self?.showLoginFailurePopUp()
+            }
+        }
+    }
     
     private func addTargets() {
-        loginView.enterButton.addTarget(self, action: #selector(goToMainScreen), for: .touchUpInside)
+        loginView.enterButton.addTarget(self, action: #selector(loginUser), for: .touchUpInside)
         loginView.registerButton.addTarget(self, action: #selector(goToRegisterScreen), for: .touchUpInside)
         
         
@@ -77,14 +77,14 @@ class LoginViewController: UIViewController {
         loginView.enterButton.isEnabled = true
     }
 
-//    @objc func loginUser() {
-//        let loginData = Login(username: loginView.loginTextField.text ?? ""
-//                            , email: ""
-//                            , password: loginView.passwordTextField.text ?? "")
-//
-//        loginViewModel.postData(loginData)
-//    }
-//
+    @objc func loginUser() {
+        let loginData = Login(username: loginView.loginTextField.text ?? ""
+                            , email: nil
+                            , password: loginView.passwordTextField.text ?? "")
+
+        loginViewModel.postData(loginData)
+    }
+
     @objc func goToRegisterScreen() {
         let nextScreen = RegisterViewController(view: RegisterView(), viewModel: RegisterViewModel())
         self.navigationController?.pushViewController(nextScreen, animated: true)
@@ -99,15 +99,24 @@ class LoginViewController: UIViewController {
         let safeAreaTopInset = view.safeAreaInsets.top
         let popUpView = UIView(frame: CGRect(x: 32, y: safeAreaTopInset - 64 , width: view.frame.width - 64, height: 64))
         
-        popUpView.layer.borderWidth = 1.0
-        popUpView.layer.borderColor = UIColor.red.cgColor
         popUpView.layer.cornerRadius = 16
-        popUpView.backgroundColor = .white
+        popUpView.backgroundColor = .red
         
-        let messageLabel = UILabel(frame: CGRect(x: 16, y: 0, width: popUpView.frame.width, height: popUpView.frame.height))
-        messageLabel.text = "Неверный логин или пароль"
-        messageLabel.textColor = .red // Red text color
         
+        let iconImage = UIImage(systemName: "exclamationmark.circle.fill")
+        let iconImageView = UIImageView(frame: CGRect(x: 16, y: popUpView.frame.height/2 - 16, width: 32, height: 32))
+        iconImageView.image = iconImage
+        iconImageView.tintColor = .white
+        
+        let messageLabel = UILabel(frame: CGRect(x: 56, y: 0, width: popUpView.frame.width, height: popUpView.frame.height))
+        let textAttributes =  [
+            NSAttributedString.Key.font: UIFont(name: "gothampro-medium", size: 16)!,
+            NSAttributedString.Key.foregroundColor: UIColor(rgb: 0xFFFFFF)
+            ]
+        messageLabel.attributedText = NSAttributedString(string: "Неверный логин или пароль",
+                                                         attributes: textAttributes)
+        
+        popUpView.addSubview(iconImageView)
         popUpView.addSubview(messageLabel)
         view.addSubview(popUpView)
         
