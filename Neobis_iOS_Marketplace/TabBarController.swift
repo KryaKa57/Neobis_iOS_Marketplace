@@ -22,8 +22,7 @@ class CustomTabBarController: UITabBarController {
         navigationItem.leftBarButtonItem = backButtonItem
         navigationController?.navigationBar.tintColor = .black
         
-        let mainViewController = UIViewController()
-        mainViewController.view.backgroundColor = .white
+        let mainViewController = MainViewController(view: MainView(), viewModel: MainViewModel())
         let homeImage = UIImage(named: "home-tabbar")?.resize(targetSize: CGSize(width: 25, height: 25))
         mainViewController.tabBarItem = UITabBarItem(title: "Главная", image: homeImage, tag: 0)
 
@@ -86,4 +85,6 @@ class CustomTabBarController: UITabBarController {
         // Handle center button tap action
         print("Center button tapped")
     }
+    
+    
 }

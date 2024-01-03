@@ -103,14 +103,14 @@ struct PatchedUserDetails: Codable {
 }
 
 struct Product: Codable {
-    let id: String
+    let id: Int
     let title: String
     let short_description: String
     let description: String
     let price: Int
     let product_image: String?
-    let likes: String
-    let likes_count: String
+    let likes: [Int]
+    let likes_count: Int
 }
 
 struct Register: Codable {

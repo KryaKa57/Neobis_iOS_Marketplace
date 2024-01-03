@@ -12,7 +12,6 @@ class ProfileEditViewModel {
     var sections: [[ProfileEditCellData]] = []
     
     init() {
-        // Define data for sections and cells
         let section1Data = [
             ProfileEditCellData(placeholder: "Имя", text: nil),
             ProfileEditCellData(placeholder: "Фамилия", text: nil),
@@ -28,6 +27,5 @@ class ProfileEditViewModel {
         
         sections = [section1Data, section2Data]
     }
-    
     
 }

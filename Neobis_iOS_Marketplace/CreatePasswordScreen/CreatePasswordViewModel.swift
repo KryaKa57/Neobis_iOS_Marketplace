@@ -15,7 +15,7 @@ class CreatePasswordViewModel {
         let endpoint = Endpoint.postRegistration()
         let requestData = try? JSONEncoder().encode(registerData)
         
-        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] result in
+        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] (result: Result<JWT, NetworkError>) in
             switch result {
             case .success(let res):
                 TokenDataManager.manager.setAccessToken(token: res.access_token)

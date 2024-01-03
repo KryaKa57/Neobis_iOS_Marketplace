@@ -15,7 +15,7 @@ class LoginViewModel {
         let endpoint = Endpoint.postLogin()
         let requestData = try? JSONEncoder().encode(data)
         
-        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] result in
+        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] (result: Result<JWT, NetworkError>) in
             switch result {
             case .success:
                 self?.onUserLogined?()

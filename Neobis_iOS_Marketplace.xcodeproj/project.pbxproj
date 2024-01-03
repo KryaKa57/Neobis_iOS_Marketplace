@@ -64,6 +64,7 @@
 		6452911A2B440CD000855E7E /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291192B440CD000855E7E /* NetworkManager.swift */; };
 		645291202B440D0C00855E7E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452911F2B440D0C00855E7E /* Models.swift */; };
 		645291252B44868000855E7E /* TokenDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291242B44868000855E7E /* TokenDataManager.swift */; };
+		645291272B45A73C00855E7E /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291262B45A73C00855E7E /* ProductCell.swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +130,7 @@
 		645291192B440CD000855E7E /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		6452911F2B440D0C00855E7E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		645291242B44868000855E7E /* TokenDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDataManager.swift; sourceTree = "<group>"; };
+		645291262B45A73C00855E7E /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -327,6 +329,7 @@
 				6452910C2B3E065200855E7E /* MainView.swift */,
 				6452910E2B3E065F00855E7E /* MainViewController.swift */,
 				645291122B3E067C00855E7E /* MainViewModel.swift */,
+				645291262B45A73C00855E7E /* ProductCell.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -532,6 +535,7 @@
 				645291062B3D6AA100855E7E /* RecoveryView.swift in Sources */,
 				645290CE2B3249B500855E7E /* PasswordTextField.swift in Sources */,
 				645290E42B384C7300855E7E /* ProfileEditViewController.swift in Sources */,
+				645291272B45A73C00855E7E /* ProductCell.swift in Sources */,
 				645290A82B31EB2300855E7E /* LoginViewModel.swift in Sources */,
 				645290E62B384C8F00855E7E /* ProfileEditViewModel.swift in Sources */,
 			);

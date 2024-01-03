@@ -15,9 +15,9 @@ enum NetworkError: Error, Equatable {
 }
 
 class NetworkManager {
-    static func postData(data: Data?,
+    static func postData<T: Decodable> (data: Data?,
                          with endpoint: Endpoint,
-                         completition: @escaping (Result<JWT, NetworkError>)->Void) {
+                         completition: @escaping (Result<T, NetworkError>)->Void) {
         var request = endpoint.request!
         
         request.addBody(for: endpoint, with: data)
@@ -34,8 +34,7 @@ class NetworkManager {
             }
             
             do {
-                if let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? [String: Any] {
-                print(jsonResponse)
+                if try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) is [String: Any] {
               } else {
                 print("data maybe corrupted or in wrong format")
                 throw URLError(.badServerResponse)
@@ -47,7 +46,7 @@ class NetworkManager {
             if let data = data {
                 do {
                     let decoder = JSONDecoder()
-                    let tokenKey = try decoder.decode(JWT.self, from: data)
+                    let tokenKey = try decoder.decode(T.self, from: data)
                     completition(.success(tokenKey))
                 } catch {
                     completition(.failure(.invalidData))

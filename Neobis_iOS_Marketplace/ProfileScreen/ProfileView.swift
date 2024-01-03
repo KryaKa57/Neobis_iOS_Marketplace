@@ -112,6 +112,7 @@ class ProfileView: UIView {
     }
     
     func configure(username: String) {
+        print(username)
         userNameLabel.text = username
     }
 }

@@ -15,7 +15,6 @@ class ProfileViewController: UIViewController {
     let profileViewModel: ProfileViewModel
     
     override func loadView() {
-        //profileView.configure(username: )
         view = profileView
     }
     
@@ -24,6 +23,9 @@ class ProfileViewController: UIViewController {
         
         self.addTargets()
         self.addDelegates()
+        self.assignRequestClosures()
+        
+        profileViewModel.getUser()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +79,17 @@ class ProfileViewController: UIViewController {
         profileView.tableView.separatorStyle = .none
         profileView.tableView.dataSource = self
         profileView.tableView.delegate = self
+    }
+    
+    private func assignRequestClosures() {
+        self.profileViewModel.onSucceedRequest = { [weak self] user in
+            DispatchQueue.main.async {
+                self?.profileView.configure(username: user.username)
+            }
+        }
+        self.profileViewModel.onErrorMessage = { [weak self] error in
+            print("no")
+        }
     }
     
 }

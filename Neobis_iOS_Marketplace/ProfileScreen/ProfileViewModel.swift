@@ -10,8 +10,10 @@ import Foundation
 class ProfileViewModel {
     var sections: [[ProfileCellData]] = []
     
+    var onSucceedRequest: ((UserDetails) -> Void)?
+    var onErrorMessage : ((NetworkError) -> Void)?
+    
     init() {
-        // Define data for sections and cells
         let section1Data = [
             ProfileCellData(imageName: "heart", labelText: "Понравившиеся"),
             ProfileCellData(imageName: "store", labelText: "Мои товары")
@@ -24,5 +26,16 @@ class ProfileViewModel {
         sections = [section1Data, section2Data]
     }
     
-    
+    public func getUser() {
+        let endpoint = Endpoint.getUser()
+        NetworkManager.postData(data: nil, with: endpoint) { [weak self] (result: Result<UserDetails, NetworkError>) in
+            switch result {
+            case .success(let res):
+                self?.onSucceedRequest?(res)
+            case .failure(let error):
+                self?.onErrorMessage?(error)
+            }
+        }
+    }
 }
+
