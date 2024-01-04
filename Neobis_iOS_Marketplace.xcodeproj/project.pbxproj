@@ -75,6 +75,12 @@
 		645291392B4600C900855E7E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291382B4600C900855E7E /* TextFieldCell.swift */; };
 		6452913B2B470E2B00855E7E /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */; };
 		6452913D2B471A9400855E7E /* Extension + TextField .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452913C2B471A9400855E7E /* Extension + TextField .swift */; };
+		645291412B47590300855E7E /* FavoriteProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291402B47590300855E7E /* FavoriteProductView.swift */; };
+		645291432B47592600855E7E /* FavoriteProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291422B47592600855E7E /* FavoriteProductViewController.swift */; };
+		645291452B47594500855E7E /* FavoriteViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291442B47594500855E7E /* FavoriteViewViewModel.swift */; };
+		645291472B475FC100855E7E /* MyProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291462B475FC100855E7E /* MyProductView.swift */; };
+		645291492B475FD500855E7E /* MyProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291482B475FD500855E7E /* MyProductViewController.swift */; };
+		6452914B2B47601300855E7E /* MyProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452914A2B47601300855E7E /* MyProductViewModel.swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -151,6 +157,12 @@
 		645291382B4600C900855E7E /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
 		6452913C2B471A9400855E7E /* Extension + TextField .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + TextField .swift"; sourceTree = "<group>"; };
+		645291402B47590300855E7E /* FavoriteProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductView.swift; sourceTree = "<group>"; };
+		645291422B47592600855E7E /* FavoriteProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteProductViewController.swift; sourceTree = "<group>"; };
+		645291442B47594500855E7E /* FavoriteViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewViewModel.swift; sourceTree = "<group>"; };
+		645291462B475FC100855E7E /* MyProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductView.swift; sourceTree = "<group>"; };
+		645291482B475FD500855E7E /* MyProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductViewController.swift; sourceTree = "<group>"; };
+		6452914A2B47601300855E7E /* MyProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductViewModel.swift; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,6 +208,8 @@
 		645290842B31E0B800855E7E /* Neobis_iOS_Marketplace */ = {
 			isa = PBXGroup;
 			children = (
+				6452913F2B4758D900855E7E /* MyProductsScreen */,
+				6452913E2B4758C000855E7E /* FavoriteProductsScreen */,
 				645290932B31E0B900855E7E /* Info.plist */,
 				645290DA2B34D9C600855E7E /* TabBarController.swift */,
 				645291312B45F16900855E7E /* NewProductScreen */,
@@ -406,6 +420,26 @@
 			path = NewProductScreen;
 			sourceTree = "<group>";
 		};
+		6452913E2B4758C000855E7E /* FavoriteProductsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645291402B47590300855E7E /* FavoriteProductView.swift */,
+				645291422B47592600855E7E /* FavoriteProductViewController.swift */,
+				645291442B47594500855E7E /* FavoriteViewViewModel.swift */,
+			);
+			path = FavoriteProductsScreen;
+			sourceTree = "<group>";
+		};
+		6452913F2B4758D900855E7E /* MyProductsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645291462B475FC100855E7E /* MyProductView.swift */,
+				6452914A2B47601300855E7E /* MyProductViewModel.swift */,
+				645291482B475FD500855E7E /* MyProductViewController.swift */,
+			);
+			path = MyProductsScreen;
+			sourceTree = "<group>";
+		};
 		BBF8B66A05C07C1B1771810A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -542,11 +576,14 @@
 				645291372B45F1A100855E7E /* NewProductViewController.swift in Sources */,
 				645290D52B346FE900855E7E /* ProfileViewModel.swift in Sources */,
 				645290D92B34878600855E7E /* ProfileCellData.swift in Sources */,
+				645291472B475FC100855E7E /* MyProductView.swift in Sources */,
 				6452912A2B45D49200855E7E /* ProductDetailViewModel.swift in Sources */,
 				645291392B4600C900855E7E /* TextFieldCell.swift in Sources */,
 				645290CA2B32404600855E7E /* CreatePasswordView.swift in Sources */,
+				6452914B2B47601300855E7E /* MyProductViewModel.swift in Sources */,
 				645291042B3D6A8C00855E7E /* RecoveyViewController.swift in Sources */,
 				645291252B44868000855E7E /* TokenDataManager.swift in Sources */,
+				645291452B47594500855E7E /* FavoriteViewViewModel.swift in Sources */,
 				6452910D2B3E065200855E7E /* MainView.swift in Sources */,
 				6452912E2B45D4AC00855E7E /* ProductDetailView.swift in Sources */,
 				645290C12B320CEC00855E7E /* RegisterViewController.swift in Sources */,
@@ -563,6 +600,7 @@
 				645290C82B32402C00855E7E /* CreatePasswordViewController.swift in Sources */,
 				645290D32B346FD900855E7E /* ProfileViewController.swift in Sources */,
 				645290862B31E0B800855E7E /* AppDelegate.swift in Sources */,
+				645291492B475FD500855E7E /* MyProductViewController.swift in Sources */,
 				645291132B3E067C00855E7E /* MainViewModel.swift in Sources */,
 				645290A22B31EAEA00855E7E /* CustomButton.swift in Sources */,
 				645290F42B38B4D200855E7E /* ProfileEditCell.swift in Sources */,
@@ -588,11 +626,13 @@
 				645290CC2B32409E00855E7E /* CreatePasswordViewModel.swift in Sources */,
 				6452913D2B471A9400855E7E /* Extension + TextField .swift in Sources */,
 				645290E22B384C4A00855E7E /* ProfileEditView.swift in Sources */,
+				645291412B47590300855E7E /* FavoriteProductView.swift in Sources */,
 				645291062B3D6AA100855E7E /* RecoveryView.swift in Sources */,
 				645290CE2B3249B500855E7E /* PasswordTextField.swift in Sources */,
 				645290E42B384C7300855E7E /* ProfileEditViewController.swift in Sources */,
 				645291272B45A73C00855E7E /* ProductCell.swift in Sources */,
 				645290A82B31EB2300855E7E /* LoginViewModel.swift in Sources */,
+				645291432B47592600855E7E /* FavoriteProductViewController.swift in Sources */,
 				645290E62B384C8F00855E7E /* ProfileEditViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

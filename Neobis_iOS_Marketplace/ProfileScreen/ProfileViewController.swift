@@ -144,5 +144,40 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return 8
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch (indexPath.section, indexPath.row) {
+            case (0,0):
+                let favoriteProductViewController = FavoriteProductViewController(view: FavoriteProductView(), viewModel: FavoriteViewViewModel())
+                navigationController?.pushViewController(favoriteProductViewController, animated: true)
+            case (0,1):
+                let favoriteProductViewController = MyProductViewController(view: MyProductView(), viewModel: MyProductViewModel())
+                navigationController?.pushViewController(favoriteProductViewController, animated: true)
+            case (1,0):
+                presentAlertView()
+            default:
+                break
+        }
+    }
+    
+    func presentAlertView() {
+        let alertViewController = CustomAlertViewController()
+        alertViewController.delegate = self
+        alertViewController.modalPresentationStyle = .overFullScreen
+        alertViewController.configure(imageName: "logout-red"
+                                      , messageText: "Вы действительно хотите выйти с приложения?"
+                                      , acceptText: "Выйти", rejectText: "Отмена")
+        present(alertViewController, animated: true, completion: nil)
+    }
+    
+    
 }
 
+extension ProfileViewController: CustomAlertViewControllerDelegate {
+    func didTapYesButton() {
+        UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            exit(0)
+        }
+    }
+}

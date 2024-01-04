@@ -56,12 +56,21 @@ enum Endpoint {
 extension URLRequest {
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .getProducts, .addProduct:
+        case .postRegistration, .postLogin, .getUser, .getProducts:
             let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
             
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
             self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)
+        case .addProduct:
+            let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
+            
+            
+            let boundary = "Boundary-\(UUID().uuidString)"
+            self.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
+            self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
+            self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)
+            
         }
     }
     

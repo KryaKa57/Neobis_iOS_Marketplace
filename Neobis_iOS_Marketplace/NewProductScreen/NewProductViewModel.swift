@@ -12,15 +12,16 @@ class NewProductViewModel {
     var onProductAdded: (() -> Void)?
     var onErrorMessage: ((NetworkError) -> Void)?
     
-    func postData(_ data: Product) {
+    func postData(_ data: ProductDetails) {
         let endpoint = Endpoint.addProduct()
         let requestData = try? JSONEncoder().encode(data)
         
-        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] (result: Result<JWT, NetworkError>) in
+        NetworkManager.postData(data: requestData, with: endpoint) { [weak self] (result: Result<Product, NetworkError>) in
             switch result {
             case .success:
-                self?.onProductAdded?()
+                print("added")
             case .failure(let error):
+                print(error.localizedDescription)
                 self?.onErrorMessage?(error)
             }
         }

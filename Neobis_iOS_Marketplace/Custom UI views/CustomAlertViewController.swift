@@ -77,11 +77,12 @@ class CustomAlertViewController: UIViewController {
         super.viewDidLoad()
         
         self.createView()
+        hidesBottomBarWhenPushed = true
     }
     
     private func createView() {
         let alertWidth: CGFloat = systemBounds.width - 64
-        let alertHeight: CGFloat = 320
+        let alertHeight: CGFloat = 300
         
         let xPos = (view.frame.width - alertWidth) / 2
         let yPos = (view.frame.height - alertHeight) / 2
@@ -98,7 +99,7 @@ class CustomAlertViewController: UIViewController {
         self.iconImage.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(alertWidth / 2.5)
+            make.width.height.equalTo(alertWidth / 3)
         }
         self.messageLabel.snp.makeConstraints { make in
             make.top.equalTo(iconImage.snp.bottom).offset(16)
@@ -126,5 +127,12 @@ class CustomAlertViewController: UIViewController {
     @objc func close(_ button: UIButton) {
         delegate?.didTapYesButton()
         dismiss(animated: true)
+    }
+    
+    func configure(imageName: String, messageText: String, acceptText: String, rejectText: String) {
+        iconImage.image = UIImage(named: imageName)
+        messageLabel.text = messageText
+        confirmButton.setTitle(acceptText, for: .normal)
+        rejectButton.setTitle(rejectText, for: .normal)
     }
 }

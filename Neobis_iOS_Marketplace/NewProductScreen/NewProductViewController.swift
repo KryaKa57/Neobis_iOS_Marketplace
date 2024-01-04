@@ -7,9 +7,11 @@
 
 import Foundation
 import UIKit
+import Cloudinary
 
 
 class NewProductViewController: UIViewController {
+    var lastImageURL = ""
     
     private let systemBounds = UIScreen.main.bounds
     let newProductView = NewProductView()
@@ -100,28 +102,38 @@ class NewProductViewController: UIViewController {
     
     
     func addProduct() {
-        print(newProductView.images.first)
+        //print(newProductView.images.first)
+        //print(imageToURL(image: newProductView.images.first!))
+        //https://res.cloudinary.com/ddryobvpq/image/upload/v1704394990/dle9g581b0rye7h33ufh.jpg
+        //ProductDetails
         
-        
+        var texts: [String] = []
         for section in 0..<newProductView.tableView.numberOfSections {
             for row in 0..<newProductView.tableView.numberOfRows(inSection: section) {
                 if let cell = newProductView.tableView.cellForRow(at: IndexPath(row: row, section: section)) as? TextFieldTableViewCell {
                     if let text = cell.textField.text {
-                        print(text)
+                        texts.append(text)
                     }
                 }
             }
         }
+        
+        guard let imageData = newProductView.images.first!.jpegData(compressionQuality: 0.8) else {
+            print("Error converting image to JPEG data")
+            return
+        }
+        
+        let productData = ProductDetails(title: texts[1], short_description: texts[2], description: texts[3], price: Int(texts[0]) ?? 0, product_image: imageData.base64EncodedString())
+        newProductViewModel.postData(productData)
     }
     
-    func imageToURL() -> String {
-        // Assuming you have configured Cloudinary SDK and obtained your cloud name, API key, and API secret.
-        let config = CLDConfiguration(cloudName: "your_cloud_name", apiKey: "your_api_key", apiSecret: "your_api_secret")
+    func imageToURL(image: UIImage) -> String {
+        let config = CLDConfiguration(cloudName: "ddryobvpq", apiKey: "349451583689634",apiSecret: "aJCFAR68g1-7q_sVJQbTQgBWOA4")
         let cloudinary = CLDCloudinary(configuration: config)
 
-        let imageData = yourImage.jpegData(compressionQuality: 1.0) // Convert UIImage to Data
+        let imageData = image.jpegData(compressionQuality: 1.0) // Convert UIImage to Data
         let params = CLDUploadRequestParams()
-        params.setTransformation(CLDTransformation().setWidth(300).setHeight(300).setGravity(.auto))
+        params.setTransformation(CLDTransformation().setWidth(300).setHeight(300).setCrop(.fill).setGravity(.auto))
 
         cloudinary.createUploader().signedUpload(data: imageData!, params: params, progress: { (progress) in
             // Handle upload progress
@@ -135,6 +147,7 @@ class NewProductViewController: UIViewController {
             }
         })
 
+        return ""
     }
 
     @objc private func addImage() {
@@ -197,11 +210,17 @@ extension NewProductViewController: UITextFieldDelegate {
 
 extension NewProductViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let imageURL = info[.imageURL] as? URL {
+            lastImageURL = "\(imageURL)"
+        }
+        
         guard let image = info[.editedImage] as? UIImage else { return }
         newProductView.images.append(image)
         newProductView.updateImages()
         
         dismiss(animated: true)
+        
     }
 }
 

@@ -17,7 +17,8 @@ class LoginViewModel {
         
         NetworkManager.postData(data: requestData, with: endpoint) { [weak self] (result: Result<JWT, NetworkError>) in
             switch result {
-            case .success:
+            case .success(let res):
+                print(res)
                 self?.onUserLogined?()
             case .failure(let error):
                 self?.onErrorMessage?(error)

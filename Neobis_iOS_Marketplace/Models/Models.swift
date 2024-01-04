@@ -102,6 +102,14 @@ struct PatchedUserDetails: Codable {
     let last_name: String?
 }
 
+struct ProductDetails: Codable {
+    let title: String
+    let short_description: String
+    let description: String
+    let price: Int
+    let product_image: String?
+}
+
 struct Product: Codable {
     let id: Int
     let title: String
