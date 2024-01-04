@@ -13,9 +13,9 @@ class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBar.backgroundColor = .white
-        self.tabBar.layer.cornerRadius = 25
-        self.tabBar.tintColor = UIColor(rgb: 0x5458EA)
+        tabBar.backgroundColor = .white
+        tabBar.layer.cornerRadius = 25
+        tabBar.tintColor = UIColor(rgb: 0x5458EA)
         
         let backButton = UIButton()
         let backButtonItem = UIBarButtonItem(customView: backButton)
@@ -52,26 +52,25 @@ class CustomTabBarController: UITabBarController {
         // Create a custom center button
         let centerButton = UIButton(type: .custom)
         let plusImage = UIImage(systemName: "plus")
-        centerButton.backgroundColor = .blue
-        centerButton.layer.cornerRadius = 30
         centerButton.setImage(plusImage, for: .normal)
         centerButton.tintColor = .white
+        centerButton.backgroundColor = .blue
+        centerButton.layer.cornerRadius = 30
         centerButton.imageView?.contentMode = .scaleAspectFit
         centerButton.frame.size = CGSize(width: 60, height: 60)
         centerButton.addTarget(self, action: #selector(centerButtonAction), for: .touchUpInside)
 
-        // Add the button to the tab bar
-        tabBar.addSubview(centerButton)
+
         centerButton.center = CGPoint(x: tabBar.center.x, y: tabBar.bounds.height - (centerButton.bounds.height / 2) - 25)
         
-        let titleAttributes = [NSAttributedString.Key.foregroundColor: UIColor.gray,
-                               NSAttributedString.Key.font: UIFont(name: "gothampro", size: 12)]
-        if let tabBarItems = tabBar.items {
-            for tabBarItem in tabBarItems {
-                tabBarItem.setTitleTextAttributes(titleAttributes as [NSAttributedString.Key : Any], for: .normal)
-            }
-        }
         
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+                .foregroundColor: UIColor.gray,
+                .font: UIFont(name: "gothampro", size: 12) ?? UIFont.systemFont(ofSize: 12) // Fallback font
+            ]
+        tabBar.items?.forEach { $0.setTitleTextAttributes(titleAttributes, for: .normal) }
+            
+        tabBar.addSubview(centerButton)
     }
     
     private func createNav(with title: String, and image: UIImage?, vc: UIViewController) -> UINavigationController {
@@ -82,8 +81,8 @@ class CustomTabBarController: UITabBarController {
     }
 
     @objc func centerButtonAction() {
-        // Handle center button tap action
-        print("Center button tapped")
+        let nextScreen = NewProductViewController(view: NewProductView(), viewModel: NewProductViewModel())
+        self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
     

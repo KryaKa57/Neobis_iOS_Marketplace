@@ -15,6 +15,8 @@ enum Endpoint {
     case getUser(url: String = "/api/v1/auth/user/")
     case getProducts(url: String = "/products/")
     
+    case addProduct(url: String = "/products/add/")
+    
     var request: URLRequest? {
         guard let url = self.url else { return nil }
         
@@ -35,14 +37,15 @@ enum Endpoint {
     
     private var path: String {
         switch self {
-        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url):
+        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url)
+            , .addProduct(let url):
             return url
         }
     }
     
     private var httpMethod: String {
         switch self {
-        case .postRegistration, .postLogin:
+        case .postRegistration, .postLogin, .addProduct:
             return HTTP.Method.post.rawValue
         case .getUser, .getProducts:
             return HTTP.Method.get.rawValue
@@ -53,7 +56,7 @@ enum Endpoint {
 extension URLRequest {
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .getProducts:
+        case .postRegistration, .postLogin, .getUser, .getProducts, .addProduct:
             let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
             
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
@@ -64,7 +67,7 @@ extension URLRequest {
     
     mutating func addBody(for endpoint: Endpoint, with data: Data?) {
         switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .getProducts:
+        case .postRegistration, .postLogin, .getUser, .getProducts, .addProduct:
             self.httpBody = data
         }
     }

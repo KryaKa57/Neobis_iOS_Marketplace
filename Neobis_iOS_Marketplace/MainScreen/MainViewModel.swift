@@ -7,10 +7,20 @@
 
 import Foundation
 
+protocol MainViewModelDelegate: AnyObject {
+    func didSelectItem(at index: Int)
+}
+
 class MainViewModel {
+    
+    weak var delegate: MainViewModelDelegate?
     
     private var items: [Product] = []
         
+    func didSelectItem(at index: Int) {
+        delegate?.didSelectItem(at: index)
+    }
+    
     func numberOfItems() -> Int {
         return items.count
     }

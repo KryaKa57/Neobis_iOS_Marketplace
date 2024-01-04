@@ -89,6 +89,8 @@ class MainViewController: UIViewController {
     private func addDelegates() {
         mainView.collectionView.dataSource = self
         mainView.collectionView.delegate = self
+        
+        mainViewModel.delegate = self
     }
     
     private func assignRequestClosures() {
@@ -114,5 +116,15 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         let width = (view.frame.size.width - 48) / 2 // Adjust the spacing as needed
         return CGSize(width: width, height: width * 1.2) // Set cell size
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        mainViewModel.didSelectItem(at: indexPath.item)
+    }
 }
 
+extension MainViewController: MainViewModelDelegate {
+    func didSelectItem(at index: Int) {
+        let nextScreen = ProductDetailViewController(view: ProductDetailView(), viewModel: ProductDetailViewModel(), data: mainViewModel.item(at: index))
+        self.navigationController?.pushViewController(nextScreen, animated: true)
+    }
+}

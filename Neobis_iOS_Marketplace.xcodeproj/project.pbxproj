@@ -65,6 +65,16 @@
 		645291202B440D0C00855E7E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452911F2B440D0C00855E7E /* Models.swift */; };
 		645291252B44868000855E7E /* TokenDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291242B44868000855E7E /* TokenDataManager.swift */; };
 		645291272B45A73C00855E7E /* ProductCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291262B45A73C00855E7E /* ProductCell.swift */; };
+		6452912A2B45D49200855E7E /* ProductDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291292B45D49200855E7E /* ProductDetailViewModel.swift */; };
+		6452912C2B45D4A000855E7E /* ProductDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452912B2B45D4A000855E7E /* ProductDetailViewController.swift */; };
+		6452912E2B45D4AC00855E7E /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452912D2B45D4AC00855E7E /* ProductDetailView.swift */; };
+		645291302B45DFC600855E7E /* Extension + NumericFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452912F2B45DFC600855E7E /* Extension + NumericFormatter.swift */; };
+		645291332B45F18900855E7E /* NewProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291322B45F18900855E7E /* NewProductViewModel.swift */; };
+		645291352B45F19400855E7E /* NewProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291342B45F19400855E7E /* NewProductView.swift */; };
+		645291372B45F1A100855E7E /* NewProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291362B45F1A100855E7E /* NewProductViewController.swift */; };
+		645291392B4600C900855E7E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291382B4600C900855E7E /* TextFieldCell.swift */; };
+		6452913B2B470E2B00855E7E /* CustomAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */; };
+		6452913D2B471A9400855E7E /* Extension + TextField .swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452913C2B471A9400855E7E /* Extension + TextField .swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +141,16 @@
 		6452911F2B440D0C00855E7E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		645291242B44868000855E7E /* TokenDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDataManager.swift; sourceTree = "<group>"; };
 		645291262B45A73C00855E7E /* ProductCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCell.swift; sourceTree = "<group>"; };
+		645291292B45D49200855E7E /* ProductDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewModel.swift; sourceTree = "<group>"; };
+		6452912B2B45D4A000855E7E /* ProductDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewController.swift; sourceTree = "<group>"; };
+		6452912D2B45D4AC00855E7E /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		6452912F2B45DFC600855E7E /* Extension + NumericFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + NumericFormatter.swift"; sourceTree = "<group>"; };
+		645291322B45F18900855E7E /* NewProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductViewModel.swift; sourceTree = "<group>"; };
+		645291342B45F19400855E7E /* NewProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductView.swift; sourceTree = "<group>"; };
+		645291362B45F1A100855E7E /* NewProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProductViewController.swift; sourceTree = "<group>"; };
+		645291382B4600C900855E7E /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertViewController.swift; sourceTree = "<group>"; };
+		6452913C2B471A9400855E7E /* Extension + TextField .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + TextField .swift"; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -176,7 +196,10 @@
 		645290842B31E0B800855E7E /* Neobis_iOS_Marketplace */ = {
 			isa = PBXGroup;
 			children = (
+				645290932B31E0B900855E7E /* Info.plist */,
 				645290DA2B34D9C600855E7E /* TabBarController.swift */,
+				645291312B45F16900855E7E /* NewProductScreen */,
+				645291282B45D46E00855E7E /* ProductDetailScreen */,
 				645291232B44865700855E7E /* DataManager */,
 				6452911B2B440CEF00855E7E /* Models */,
 				645291142B440C7B00855E7E /* API */,
@@ -188,7 +211,6 @@
 				645290C62B32400E00855E7E /* CreatePasswordScreen */,
 				645290BF2B320CD400855E7E /* RegisterScreen */,
 				645290A02B31EAC200855E7E /* Custom UI views */,
-				645290932B31E0B900855E7E /* Info.plist */,
 				6452909A2B31EA1800855E7E /* LoginScreen */,
 				645290992B31E98800855E7E /* Supporting files */,
 				6452909D2B31EA8200855E7E /* Extensions */,
@@ -223,6 +245,8 @@
 			children = (
 				6452909E2B31EA9A00855E7E /* Extension + UIColor.swift */,
 				645290DC2B37F6B000855E7E /* Extension + UIImage.swift */,
+				6452912F2B45DFC600855E7E /* Extension + NumericFormatter.swift */,
+				6452913C2B471A9400855E7E /* Extension + TextField .swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -235,6 +259,7 @@
 				645290A12B31EAEA00855E7E /* CustomButton.swift */,
 				645290A52B31EB0000855E7E /* CustomLabel.swift */,
 				645290DE2B384A6900855E7E /* CustomNavigationButton.swift */,
+				6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */,
 			);
 			path = "Custom UI views";
 			sourceTree = "<group>";
@@ -358,6 +383,27 @@
 				645291242B44868000855E7E /* TokenDataManager.swift */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		645291282B45D46E00855E7E /* ProductDetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645291292B45D49200855E7E /* ProductDetailViewModel.swift */,
+				6452912B2B45D4A000855E7E /* ProductDetailViewController.swift */,
+				6452912D2B45D4AC00855E7E /* ProductDetailView.swift */,
+			);
+			path = ProductDetailScreen;
+			sourceTree = "<group>";
+		};
+		645291312B45F16900855E7E /* NewProductScreen */ = {
+			isa = PBXGroup;
+			children = (
+				645291322B45F18900855E7E /* NewProductViewModel.swift */,
+				645291342B45F19400855E7E /* NewProductView.swift */,
+				645291362B45F1A100855E7E /* NewProductViewController.swift */,
+				645291382B4600C900855E7E /* TextFieldCell.swift */,
+			);
+			path = NewProductScreen;
 			sourceTree = "<group>";
 		};
 		BBF8B66A05C07C1B1771810A /* Frameworks */ = {
@@ -493,21 +539,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				645290C32B320CFE00855E7E /* RegisterView.swift in Sources */,
+				645291372B45F1A100855E7E /* NewProductViewController.swift in Sources */,
 				645290D52B346FE900855E7E /* ProfileViewModel.swift in Sources */,
 				645290D92B34878600855E7E /* ProfileCellData.swift in Sources */,
+				6452912A2B45D49200855E7E /* ProductDetailViewModel.swift in Sources */,
+				645291392B4600C900855E7E /* TextFieldCell.swift in Sources */,
 				645290CA2B32404600855E7E /* CreatePasswordView.swift in Sources */,
 				645291042B3D6A8C00855E7E /* RecoveyViewController.swift in Sources */,
 				645291252B44868000855E7E /* TokenDataManager.swift in Sources */,
 				6452910D2B3E065200855E7E /* MainView.swift in Sources */,
+				6452912E2B45D4AC00855E7E /* ProductDetailView.swift in Sources */,
 				645290C12B320CEC00855E7E /* RegisterViewController.swift in Sources */,
 				645290A42B31EAF700855E7E /* CustomTextField.swift in Sources */,
 				645291012B3A7B8C00855E7E /* VerificationViewModel.swift in Sources */,
 				645291182B440CB100855E7E /* HTTP.swift in Sources */,
+				645291352B45F19400855E7E /* NewProductView.swift in Sources */,
 				645290DF2B384A6900855E7E /* CustomNavigationButton.swift in Sources */,
 				645291202B440D0C00855E7E /* Models.swift in Sources */,
 				6452910A2B3D830A00855E7E /* CodeInputView.swift in Sources */,
 				6452908A2B31E0B800855E7E /* LoginViewController.swift in Sources */,
 				6452911A2B440CD000855E7E /* NetworkManager.swift in Sources */,
+				645291302B45DFC600855E7E /* Extension + NumericFormatter.swift in Sources */,
 				645290C82B32402C00855E7E /* CreatePasswordViewController.swift in Sources */,
 				645290D32B346FD900855E7E /* ProfileViewController.swift in Sources */,
 				645290862B31E0B800855E7E /* AppDelegate.swift in Sources */,
@@ -520,17 +572,21 @@
 				645290DB2B34D9C600855E7E /* TabBarController.swift in Sources */,
 				645290C52B320D0900855E7E /* RegisterViewModel.swift in Sources */,
 				645290D72B347EA900855E7E /* ProfileTableViewCell.swift in Sources */,
+				6452912C2B45D4A000855E7E /* ProductDetailViewController.swift in Sources */,
 				645291082B3D6AB700855E7E /* RecoveryViewModel.swift in Sources */,
 				645290882B31E0B800855E7E /* SceneDelegate.swift in Sources */,
 				645291162B440C9900855E7E /* Endpoint.swift in Sources */,
 				6452909F2B31EA9A00855E7E /* Extension + UIColor.swift in Sources */,
 				645290FA2B38B55000855E7E /* TextFieldData.swift in Sources */,
 				6452910F2B3E065F00855E7E /* MainViewController.swift in Sources */,
+				6452913B2B470E2B00855E7E /* CustomAlertViewController.swift in Sources */,
 				645290A62B31EB0000855E7E /* CustomLabel.swift in Sources */,
 				645290DD2B37F6B000855E7E /* Extension + UIImage.swift in Sources */,
+				645291332B45F18900855E7E /* NewProductViewModel.swift in Sources */,
 				645290FD2B3A7A9500855E7E /* VerificationViewController.swift in Sources */,
 				645290F82B38B53400855E7E /* ProfileEditCellData.swift in Sources */,
 				645290CC2B32409E00855E7E /* CreatePasswordViewModel.swift in Sources */,
+				6452913D2B471A9400855E7E /* Extension + TextField .swift in Sources */,
 				645290E22B384C4A00855E7E /* ProfileEditView.swift in Sources */,
 				645291062B3D6AA100855E7E /* RecoveryView.swift in Sources */,
 				645290CE2B3249B500855E7E /* PasswordTextField.swift in Sources */,

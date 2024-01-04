@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileEditViewController: UIViewController, UITextFieldDelegate {
+class ProfileEditViewController: UIViewController {
     
     private let systemBounds = UIScreen.main.bounds
     let profileEditView = ProfileEditView()
@@ -100,12 +100,10 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
         
         dismiss(animated: true)
     }
-    
-    
 }
 
 
-extension ProfileEditViewController: UITableViewDataSource, UITableViewDelegate {
+extension ProfileEditViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return profileEditViewModel.sections.count
     }

@@ -15,33 +15,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-//        let viewModel = WeatherViewModel()
         let view = LoginView()
-//        WeatherViewController(viewModel: viewModel, view: view)
-        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+        //window?.rootViewController = UINavigationController(rootViewController: NewProductViewController(view: NewProductView(), viewModel: NewProductViewModel()))
         window?.rootViewController = UINavigationController(rootViewController: LoginViewController(view: view))
         window?.makeKeyAndVisible()
-    }
-    
-    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
-        
-        let mainViewController = UIViewController()
-        let walletViewController = UIViewController()
-        let messageViewController = UIViewController()
-        let profileViewController = ProfileViewController(view: ProfileView(), viewModel: ProfileViewModel())
-
-        let mainNav = UINavigationController(rootViewController: mainViewController)
-        let walletNav = UINavigationController(rootViewController: walletViewController)
-        let messageNav = UINavigationController(rootViewController: messageViewController)
-        let profileNav = UINavigationController(rootViewController: profileViewController)
-        
-        guard let window = self.window else {
-            return
-        }
-            
-        window.rootViewController = vc
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
