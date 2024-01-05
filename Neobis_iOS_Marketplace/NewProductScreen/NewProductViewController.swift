@@ -12,8 +12,10 @@ import Cloudinary
 
 class NewProductViewController: UIViewController {
     var lastImageURL = ""
+    var data: Product? = nil
     
     private let systemBounds = UIScreen.main.bounds
+    
     let newProductView = NewProductView()
     let newProductViewModel: NewProductViewModel
     
@@ -34,7 +36,6 @@ class NewProductViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.setHidesBackButton(true, animated: true)
-        self.navigationItem.title = ""
         
         let saveProfileButton = CustomNavigationButton()
         let cancelProfileButton = CustomNavigationButton()
@@ -52,12 +53,22 @@ class NewProductViewController: UIViewController {
         cancelProfileButton.addTarget(self, action: #selector(cancelAdding), for: .touchUpInside)
             
         self.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
-        self.navigationItem.leftBarButtonItem = cancelButtonItem
-        self.navigationItem.rightBarButtonItem = saveButtonItem
+        
+        if data == nil {
+            self.navigationItem.title = ""
+            self.navigationItem.leftBarButtonItem = cancelButtonItem
+            self.navigationItem.rightBarButtonItem = saveButtonItem
+        } else {
+            self.tabBarController?.navigationItem.title = ""
+            self.tabBarController?.navigationItem.leftBarButtonItem = cancelButtonItem
+            self.tabBarController?.navigationItem.rightBarButtonItem = saveButtonItem
+        }
+        
     }
     
-    init(view: NewProductView, viewModel: NewProductViewModel) {
+    init(view: NewProductView, viewModel: NewProductViewModel, with product: Product? = nil) {
         self.newProductViewModel = viewModel
+        self.data = product
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
@@ -174,7 +185,22 @@ extension NewProductViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textField.tag = indexPath.section
         cell.textField.delegate = self
         cell.contentView.isUserInteractionEnabled = false
-        cell.configure(newProductViewModel.placeholderValues[indexPath.section])
+        
+        
+        var text = ""
+        
+        if data != nil {
+            switch (indexPath.section) {
+            case 0: text = "\(data?.price ?? 0)"
+            case 1: text = data?.title ?? ""
+            case 2: text = data?.short_description ?? ""
+            case 3: text = data?.description ?? ""
+            default: break
+            }
+        }
+        
+        cell.configure(newProductViewModel.placeholderValues[indexPath.section], with: text)
+        
         return cell
     }
     

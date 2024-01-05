@@ -44,6 +44,7 @@ class ProductDetailViewController: UIViewController {
     
     private func setNavigation() {
         
+        self.tabBarController?.navigationItem.title = ""
         self.navigationItem.title = ""
         self.navigationItem.setHidesBackButton(true, animated: true)
         

@@ -14,8 +14,10 @@ enum Endpoint {
     
     case getUser(url: String = "/api/v1/auth/user/")
     case getProducts(url: String = "/products/")
+    case getUserProducts(url: String = "/products/my-list/")
     
     case addProduct(url: String = "/products/add/")
+    case deleteProduct(url: String = "/products/")
     
     var request: URLRequest? {
         guard let url = self.url else { return nil }
@@ -37,8 +39,7 @@ enum Endpoint {
     
     private var path: String {
         switch self {
-        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url)
-            , .addProduct(let url):
+        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url), .getUserProducts(let url), .addProduct(let url), .deleteProduct(let url):
             return url
         }
     }
@@ -47,8 +48,11 @@ enum Endpoint {
         switch self {
         case .postRegistration, .postLogin, .addProduct:
             return HTTP.Method.post.rawValue
-        case .getUser, .getProducts:
+        case .getUser, .getProducts, .getUserProducts:
             return HTTP.Method.get.rawValue
+        case .deleteProduct:
+            return HTTP.Method.delete.rawValue
+            
         }
     }
 }
@@ -56,9 +60,8 @@ enum Endpoint {
 extension URLRequest {
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .getProducts:
+        case .postRegistration, .postLogin, .getUser, .getProducts, .getUserProducts, .deleteProduct:
             let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
-            
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
             self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)
@@ -76,8 +79,9 @@ extension URLRequest {
     
     mutating func addBody(for endpoint: Endpoint, with data: Data?) {
         switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .getProducts, .addProduct:
+        case .postRegistration, .postLogin, .getUser, .addProduct:
             self.httpBody = data
+        case .getProducts, .getUserProducts, .deleteProduct: break
         }
     }
 }

@@ -44,6 +44,7 @@ class NetworkManager {
             }
             
             if let data = data {
+                print(String(data: data, encoding: .utf8))
                 do {
                     let decoder = JSONDecoder()
                     let tokenKey = try decoder.decode(T.self, from: data)

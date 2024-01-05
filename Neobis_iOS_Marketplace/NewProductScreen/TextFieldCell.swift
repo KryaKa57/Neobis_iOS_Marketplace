@@ -48,12 +48,16 @@ class TextFieldTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(_ placeholder: String) {
+    func configure(_ placeholder: String, with data: String? = nil) {
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor(rgb: 0xC0C0C0),
             NSAttributedString.Key.font: UIFont(name: "gothampro", size: 16)
         ]
         textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: attributes as [NSAttributedString.Key : Any])
+        
+        if data != nil && data != "" {
+            textField.text = data
+        }
     }
 }
 

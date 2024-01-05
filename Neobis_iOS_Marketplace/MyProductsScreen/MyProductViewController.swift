@@ -20,6 +20,9 @@ class MyProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addTargets()
+        self.addDelegates()
+        self.assignRequestClosures()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,5 +60,91 @@ class MyProductViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func addTargets() {
+    }
+    
+    private func addDelegates() {
+        myProductView.collectionView.dataSource = self
+        myProductView.collectionView.delegate = self
+        
+        myProductViewModel.delegate = self
+        myProductViewModel.delegateRequest = self
+        
+    }
+    
+    private func assignRequestClosures() {
+        
+    }
+    
+    @objc func showActionSheet() {
+        let alertController = CustomActionSheet()
+        alertController.delegate = self
+        present(alertController, animated: true)
+    }
+}
+
+
+extension MyProductViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return myProductViewModel.numberOfItems()
+    }
+        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath) as! ProductCell
+            
+        let item = myProductViewModel.item(at: indexPath.item)
+        cell.configure(with: item, editable: true)
+        
+        cell.editButton.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (view.frame.size.width - 48) / 2 // Adjust the spacing as needed
+        return CGSize(width: width, height: width * 1.2) // Set cell size
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        myProductViewModel.didSelectItem(at: indexPath.item)
+    }
+}
+
+extension MyProductViewController: MainViewModelDelegate {
+    func didSelectItem(at index: Int) {
+        let nextScreen = ProductDetailViewController(view: ProductDetailView(), viewModel: ProductDetailViewModel(), data: myProductViewModel.item(at: index))
+        self.navigationController?.pushViewController(nextScreen, animated: true)
+    }
+}
+
+extension MyProductViewController: APIRequestDelegate {
+    func onSucceedRequest() {
+        DispatchQueue.main.async {
+            self.myProductView.collectionView.reloadData()
+        }
+    }
+}
+
+extension MyProductViewController: CustomActionDelegate {
+    func onEditAction() {
+        let view = NewProductView()
+        let nextScreen = NewProductViewController(view: view, viewModel: NewProductViewModel(), with: myProductViewModel.item(at: myProductViewModel.selectedIndex))
+        self.navigationController?.pushViewController(nextScreen, animated: true)
+    }
+    
+    func onDeleteAction() {
+        let alertViewController = CustomAlertViewController()
+        alertViewController.configure(imageName: "trash-red", messageText: "Вы действительно хотите удалить данный товар?", acceptText: "Удалить", rejectText: "Отмена")
+        
+        alertViewController.delegate = self
+        alertViewController.modalPresentationStyle = .overFullScreen // Set the presentation style
+        present(alertViewController, animated: true, completion: nil)
+    }
+}
+
+extension MyProductViewController: CustomAlertViewControllerDelegate {
+    func didTapYesButton() {
+        myProductViewModel.deleteProduct(product: myProductViewModel.item(at: myProductViewModel.selectedIndex))
     }
 }

@@ -11,6 +11,7 @@ enum HTTP {
     enum Method: String {
         case get = "GET"
         case post = "POST"
+        case delete = "DELETE"
     }
     
     enum Headers {

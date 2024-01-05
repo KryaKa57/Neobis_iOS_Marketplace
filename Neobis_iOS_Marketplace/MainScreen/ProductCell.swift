@@ -42,6 +42,13 @@ class ProductCell: UICollectionViewCell {
         return button
     }()
     
+    let editButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        button.tintColor = UIColor(rgb: 0xC0C0C0)
+        return button
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 15
@@ -85,7 +92,18 @@ class ProductCell: UICollectionViewCell {
         }
     }
     
-    func configure(with item: Product) {
+    private func setUpEditButton() {
+        editButton.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(editButton)
+        
+        editButton.snp.makeConstraints { make in
+            make.top.lessThanOrEqualTo(priceLabel.snp.bottom).offset(8)
+            make.trailing.equalToSuperview().inset(16)
+            make.bottom.equalToSuperview().inset(16)
+        }
+    }
+    
+    func configure(with item: Product, editable: Bool = false) {
         guard let url = URL(string: item.product_image ?? "" ) else { return }
         
         DispatchQueue.global().async {
@@ -98,6 +116,10 @@ class ProductCell: UICollectionViewCell {
         nameLabel.text = item.title
         priceLabel.text = "\(item.price.formattedWithSeparator) $"
         likeCountButton.setTitle("\(item.likes_count)", for: .normal)
+        
+        if editable {
+            setUpEditButton()
+        }
     }
 }
 

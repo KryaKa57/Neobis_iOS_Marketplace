@@ -26,6 +26,19 @@ class MyProductView: UIView {
         return label
     }()
     
+    lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 10
+        layout.minimumInteritemSpacing = 10
+        
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collection.backgroundColor = UIColor(rgb: 0xF7F6F9)
+        collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.register(ProductCell.self, forCellWithReuseIdentifier: ProductCell.identifier)
+        return collection
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -37,21 +50,26 @@ class MyProductView: UIView {
     }
     
     private func initialize() {
-        backgroundColor = UIColor.white
-        self.addSubview(emptyImageView)
-        self.addSubview(emptyLabel)
+        backgroundColor = UIColor(rgb: 0xF7F6F9)
+//        self.addSubview(emptyImageView)
+//        self.addSubview(emptyLabel)
+        self.addSubview(collectionView)
     }
     
     private func setConstraints() {
-        self.emptyImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(systemBounds.height * 0.3)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(3)
-            make.height.equalTo(emptyImageView.snp.width).multipliedBy(1.2)
-        }
-        self.emptyLabel.snp.makeConstraints { make in
-            make.top.equalTo(emptyImageView.snp.bottom).offset(32)
-            make.centerX.equalToSuperview()
+//        self.emptyImageView.snp.makeConstraints { make in
+//            make.top.equalToSuperview().inset(systemBounds.height * 0.3)
+//            make.centerX.equalToSuperview()
+//            make.width.equalToSuperview().dividedBy(3)
+//            make.height.equalTo(emptyImageView.snp.width).multipliedBy(1.2)
+//        }
+//        self.emptyLabel.snp.makeConstraints { make in
+//            make.top.equalTo(emptyImageView.snp.bottom).offset(32)
+//            make.centerX.equalToSuperview()
+//        }
+        self.collectionView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.bottom.trailing.leading.equalToSuperview().inset(16)
         }
     }
 }

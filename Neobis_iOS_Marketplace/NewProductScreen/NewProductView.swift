@@ -94,7 +94,7 @@ class NewProductView: UIView {
         }
     }
     
-    func getButtonConfiguration(error: Bool = false) -> UIButton.Configuration {        
+    func getButtonConfiguration(error: Bool = false) -> UIButton.Configuration {
         let color = error ? .red : UIColor(rgb: 0x5458EA)
         
         var container = AttributeContainer()
@@ -128,7 +128,6 @@ class NewProductView: UIView {
             xOffset += 90
         }
     }
-    
 }
 
 

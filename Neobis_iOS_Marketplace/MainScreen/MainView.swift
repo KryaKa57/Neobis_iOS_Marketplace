@@ -47,8 +47,5 @@ class MainView: UIView {
         }
     }
     
-    func configure(username: String) {
-        print(username)
-    }
 }
 

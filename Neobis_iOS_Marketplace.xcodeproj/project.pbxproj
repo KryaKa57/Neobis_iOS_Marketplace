@@ -81,6 +81,7 @@
 		645291472B475FC100855E7E /* MyProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291462B475FC100855E7E /* MyProductView.swift */; };
 		645291492B475FD500855E7E /* MyProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645291482B475FD500855E7E /* MyProductViewController.swift */; };
 		6452914B2B47601300855E7E /* MyProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452914A2B47601300855E7E /* MyProductViewModel.swift */; };
+		6452914D2B48588900855E7E /* CustomActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6452914C2B48588900855E7E /* CustomActionSheet.swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -163,6 +164,7 @@
 		645291462B475FC100855E7E /* MyProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductView.swift; sourceTree = "<group>"; };
 		645291482B475FD500855E7E /* MyProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductViewController.swift; sourceTree = "<group>"; };
 		6452914A2B47601300855E7E /* MyProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProductViewModel.swift; sourceTree = "<group>"; };
+		6452914C2B48588900855E7E /* CustomActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActionSheet.swift; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -274,6 +276,7 @@
 				645290A52B31EB0000855E7E /* CustomLabel.swift */,
 				645290DE2B384A6900855E7E /* CustomNavigationButton.swift */,
 				6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */,
+				6452914C2B48588900855E7E /* CustomActionSheet.swift */,
 			);
 			path = "Custom UI views";
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 				645291412B47590300855E7E /* FavoriteProductView.swift in Sources */,
 				645291062B3D6AA100855E7E /* RecoveryView.swift in Sources */,
 				645290CE2B3249B500855E7E /* PasswordTextField.swift in Sources */,
+				6452914D2B48588900855E7E /* CustomActionSheet.swift in Sources */,
 				645290E42B384C7300855E7E /* ProfileEditViewController.swift in Sources */,
 				645291272B45A73C00855E7E /* ProductCell.swift in Sources */,
 				645290A82B31EB2300855E7E /* LoginViewModel.swift in Sources */,

@@ -99,7 +99,8 @@ class CustomAlertViewController: UIViewController {
         self.iconImage.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(24)
             make.centerX.equalToSuperview()
-            make.width.height.equalTo(alertWidth / 3)
+            make.height.equalTo(alertWidth / 3)
+            make.width.equalTo(iconImage.snp.height).multipliedBy((iconImage.image?.size.width ?? 1.0) / (iconImage.image?.size.height ?? 1.0))
         }
         self.messageLabel.snp.makeConstraints { make in
             make.top.equalTo(iconImage.snp.bottom).offset(16)
