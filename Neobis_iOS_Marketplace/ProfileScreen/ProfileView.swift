@@ -17,6 +17,7 @@ class ProfileView: UIView {
         image.image = UIImage(named: "user")
         image.backgroundColor = UIColor(rgb: 0x5458EA)
         image.layer.cornerRadius = systemBounds.width/10
+        image.layer.masksToBounds = true
         return image
     }()
     
@@ -111,9 +112,37 @@ class ProfileView: UIView {
         }
     }
     
-    func configure(username: String) {
-        print(username)
+    func configure(username: String, image: String) {
         userNameLabel.text = username
+        
+        
+        getImageFromURL(image) { image in
+            if let image = image {
+                self.profilePhotoImageView.image = image
+            } else {
+                print("Failed to fetch or create image")
+            }
+        }
     }
+    
+    func getImageFromURL(_ urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
 }
 

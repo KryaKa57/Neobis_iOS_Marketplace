@@ -34,7 +34,7 @@ class ProfileEditCell: UITableViewCell {
         
         cellTextField.textColor = .black
         cellTextField.font = UIFont(name: "gothampro-medium", size: 14)
-        cellTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        //cellTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
                 
         cellTextField.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(10)
@@ -47,10 +47,6 @@ class ProfileEditCell: UITableViewCell {
             make.bottom.equalToSuperview()
             make.height.equalTo(1)
         }
-    }
-    
-    @objc func textFieldDidChange(_ textField: UITextField) {
-        print(5)
     }
     
     func configure(profile: ProfileEditCellData) {

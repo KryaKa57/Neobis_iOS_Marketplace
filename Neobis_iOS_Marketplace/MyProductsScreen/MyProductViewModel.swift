@@ -16,6 +16,7 @@ class MyProductViewModel {
     weak var delegateRequest: APIRequestDelegate?
     
     private var items: [Product] = []
+    
     var selectedIndex: Int = 0
         
     func didSelectItem(at index: Int) {
@@ -53,12 +54,18 @@ class MyProductViewModel {
         
         NetworkManager.postData(data: nil, with: endpoint) { [weak self] (result: Result<Product, NetworkError>) in
             switch result {
-            case .success(let res):
-                print(res)
+            case .success(_):
+                self?.items.remove(at: self?.selectedIndex ?? 0)
+                self?.delegateRequest?.onSucceedRequest()
             case .failure(let error):
-                print(error.localizedDescription)
+                self?.items.remove(at: self?.selectedIndex ?? 0)
+                (error == NetworkError.invalidData) ? self?.delegateRequest?.onSucceedRequest() : print(error.localizedDescription)
             }
         }
+    }
+    
+    func updateItem(to item: Product) {
+        items[selectedIndex] = item
     }
 }
 

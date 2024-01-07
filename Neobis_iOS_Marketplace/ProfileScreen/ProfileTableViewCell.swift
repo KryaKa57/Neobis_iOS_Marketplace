@@ -70,7 +70,7 @@ class ProfileCell: UITableViewCell {
         }
     }
     
-    func configure(profile: ProfileCellData) {
+    func configure(profile: ProfileCellData, image: String) {
         if let image = UIImage(named: profile.imageName)?.withRenderingMode(.alwaysOriginal) {
             let resizedImage = image.resize(targetSize: CGSize(width: 25, height: 25))
             cellImageView.image = resizedImage

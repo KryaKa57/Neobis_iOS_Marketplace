@@ -9,5 +9,5 @@ import Foundation
 
 struct ProfileEditCellData {
     let placeholder: String
-    let text: String?
+    var text: String?
 }

@@ -45,7 +45,7 @@ class ProfileEditView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = UIColor(rgb: 0xF7F6F9)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(ProfileEditCell.self, forCellReuseIdentifier: ProfileEditCell.identifier)
+        tableView.register(TextFieldTableViewCell.self, forCellReuseIdentifier: TextFieldTableViewCell.identifier)
         return tableView
     }()
     

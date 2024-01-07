@@ -15,6 +15,8 @@ enum Endpoint {
     case getUser(url: String = "/api/v1/auth/user/")
     case getProducts(url: String = "/products/")
     case getUserProducts(url: String = "/products/my-list/")
+    case getProfile(url: String = "/api/profile/")
+    case postCode(url: String = "/api/v1/dj-rest-auth/registration/resend-email/")
     
     case addProduct(url: String = "/products/add/")
     case deleteProduct(url: String = "/products/")
@@ -39,20 +41,19 @@ enum Endpoint {
     
     private var path: String {
         switch self {
-        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url), .getUserProducts(let url), .addProduct(let url), .deleteProduct(let url):
+        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url), .getUserProducts(let url), .addProduct(let url), .deleteProduct(let url), .getProfile(let url), .postCode(let url):
             return url
         }
     }
     
     private var httpMethod: String {
         switch self {
-        case .postRegistration, .postLogin, .addProduct:
+        case .postRegistration, .postLogin, .addProduct, .postCode:
             return HTTP.Method.post.rawValue
-        case .getUser, .getProducts, .getUserProducts:
+        case .getUser, .getProducts, .getUserProducts, .getProfile:
             return HTTP.Method.get.rawValue
         case .deleteProduct:
             return HTTP.Method.delete.rawValue
-            
         }
     }
 }
@@ -60,7 +61,7 @@ enum Endpoint {
 extension URLRequest {
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .getProducts, .getUserProducts, .deleteProduct:
+        case .postRegistration, .postLogin, .getUser, .getProducts, .getUserProducts, .deleteProduct, .getProfile, .postCode:
             let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)

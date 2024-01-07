@@ -63,6 +63,7 @@ class ProfileViewController: UIViewController {
     
     @objc func changeButtonTapped(_ sender:UIButton!) {
         let nextScreen = ProfileEditViewController(view: ProfileEditView(), viewModel: ProfileEditViewModel())
+        nextScreen.delegate = self
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
@@ -71,7 +72,7 @@ class ProfileViewController: UIViewController {
     }
                                                     
     @objc func registerPhoneButtonTapped (_ sender:UIButton!) {
-        let nextScreen = VerificationViewController(view: VerificationView(), viewModel: VerificationViewModel())
+        let nextScreen = VerificationViewController(view: VerificationView(), viewModel: VerificationViewModel(), data: self.profileViewModel.profile?.email ?? "")
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
@@ -84,12 +85,19 @@ class ProfileViewController: UIViewController {
     private func assignRequestClosures() {
         self.profileViewModel.onSucceedRequest = { [weak self] user in
             DispatchQueue.main.async {
-                self?.profileView.configure(username: user.username)
+                self?.profileView.configure(username: user.username, image: user.profile_image ?? "")
             }
         }
         self.profileViewModel.onErrorMessage = { [weak self] error in
             print("no")
         }
+    }
+    
+}
+
+extension ProfileViewController: PoppedViewControllerDelegate {
+    func didPerformActionAfterPop(with: Product?) {
+        self.profileViewModel.getUser()
     }
     
 }
@@ -108,7 +116,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        cell.configure(profile: profileViewModel.sections[indexPath.section][indexPath.row])
+        cell.configure(profile: profileViewModel.sections[indexPath.section][indexPath.row], image: "")
         
         if indexPath.row == 1 && indexPath.section == 0 {
             cell.layer.cornerRadius = 15

@@ -7,12 +7,15 @@
 
 import Foundation
 import UIKit
+import Alamofire
 
 class ProfileEditViewController: UIViewController {
     
     private let systemBounds = UIScreen.main.bounds
     let profileEditView = ProfileEditView()
     let profileEditViewModel: ProfileEditViewModel
+    
+    weak var delegate: PoppedViewControllerDelegate?
     
     override func loadView() {
         view = profileEditView
@@ -68,7 +71,25 @@ class ProfileEditViewController: UIViewController {
     }
     
     @objc func saveSettings(_ sender:UIButton!) {
+        var texts: [String] = []
+        for section in 0..<profileEditView.tableView.numberOfSections {
+            for row in 0..<profileEditView.tableView.numberOfRows(inSection: section) {
+                if let cell = profileEditView.tableView.cellForRow(at: IndexPath(row: row, section: section)) as? TextFieldTableViewCell {
+                    if let text = cell.textField.text {
+                        texts.append(text)
+                    }
+                }
+            }
+        }
         
+        guard let imageData = profileEditView.profilePhotoImageView.image?.jpegData(compressionQuality: 0.1) else {
+            print("Error converting image to JPEG data")
+            return
+        }
+        
+        let parameters = ["first_name": texts[0], "last_name": texts[1], "username": texts[2]
+                          , "DOB": texts[3], "phone_number": texts[4]]
+        profileEditViewModel.sendFormDataWithAlamofire(data: parameters, image: imageData, method: HTTPMethod.put)
     }
     
     private func addTargets() {
@@ -79,6 +100,9 @@ class ProfileEditViewController: UIViewController {
         profileEditView.tableView.separatorStyle = .none
         profileEditView.tableView.dataSource = self
         profileEditView.tableView.delegate = self
+        
+        profileEditViewModel.delegateRequest = self
+        profileEditViewModel.putRequest = self
     }
     
     
@@ -102,6 +126,52 @@ extension ProfileEditViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
+extension ProfileEditViewController: APIRequestDelegate {
+    func onSucceedRequest() {
+        DispatchQueue.main.async {
+            self.profileEditViewModel.updateSections()
+            self.profileEditView.tableView.reloadData()
+            
+            self.getImageFromURL(self.profileEditViewModel.user?.profile_image ?? "") { image in
+                if let image = image {
+                    self.profileEditView.profilePhotoImageView.image = image
+                } else {
+                    print("Failed to fetch or create image")
+                }
+            }
+        }
+    }
+    
+    func getImageFromURL(_ urlString: String, completion: @escaping (UIImage?) -> Void) {
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+
+        DispatchQueue.global().async {
+            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+}
+
+extension ProfileEditViewController: PutRequestDelegate {
+    
+    func onSucceedPutRequest() {
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+            self.delegate?.didPerformActionAfterPop(with: nil)
+        }
+    }
+}
 
 extension ProfileEditViewController: UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -113,13 +183,16 @@ extension ProfileEditViewController: UITableViewDataSource, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileEditCell.identifier, for: indexPath) as? ProfileEditCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextFieldTableViewCell.identifier, for: indexPath) as? TextFieldTableViewCell else {
             return UITableViewCell()
         }
         
-        cell.configure(profile: profileEditViewModel.sections[indexPath.section][indexPath.row])
-        cell.cellTextField.tag = indexPath.row
-        cell.cellTextField.delegate = self
+        cell.configure(profileEditViewModel.sections[indexPath.section][indexPath.row].placeholder, with: profileEditViewModel.sections[indexPath.section][indexPath.row].text)
+        
+        
+        cell.textField.tag = indexPath.row
+        cell.textField.delegate = self
+        cell.contentView.isUserInteractionEnabled = false
         
         
         if (indexPath.row == 3 && indexPath.section == 0) ||
@@ -131,6 +204,9 @@ extension ProfileEditViewController: UITableViewDataSource, UITableViewDelegate,
             cell.layer.cornerRadius = 15
             cell.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             cell.clipsToBounds = true
+        } else {
+            cell.layer.cornerRadius = 0
+            cell.clipsToBounds = false
         }
         
         return cell

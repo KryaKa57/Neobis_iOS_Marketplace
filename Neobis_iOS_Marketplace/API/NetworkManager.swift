@@ -19,7 +19,6 @@ class NetworkManager {
     static func postData<T: Decodable> (data: Data?,
                          with endpoint: Endpoint,
                          completition: @escaping (Result<T, NetworkError>)->Void) {
-        let delegate = APIRequestDelegate
         var request = endpoint.request!
         request.httpBody = data
         
@@ -45,7 +44,7 @@ class NetworkManager {
             }
             
             if let data = data {
-                print(String(data: data, encoding: .utf8) ?? Data())
+                print(String(data:data,encoding:.utf8))
                 do {
                     let decoder = JSONDecoder()
                     let tokenKey = try decoder.decode(T.self, from: data)
@@ -59,14 +58,18 @@ class NetworkManager {
         }.resume()
     }
     
-    static func postDataWithImage (parameters: [String: Any],
+    static func postDataWithImage<T: Decodable> (parameters: [String: Any],
                                    image: Data,
-                                   with endpoint: Endpoint) {
+                                   with endpoint: Endpoint,
+                                   method: HTTPMethod,
+                                   completition: @escaping (Result<T, AFError>)->Void) {
         
         let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
         let token = TokenDataManager.manager.accessToken
         let authorizationHeaderValue = "Bearer \(token)"
         
+        let isProfile = (endpoint.url?.absoluteString == "https://pavel-backender.org.kg/api/profile/")
+            
         AF.upload (
             multipartFormData: { (multipartFormData: MultipartFormData) in
                 for (key, value) in parameters {
@@ -78,22 +81,22 @@ class NetworkManager {
                     }
                 }
 
-                multipartFormData.append(image, withName: "product_image", fileName: "image.jpg", mimeType: "image/jpeg")
+                multipartFormData.append(image, withName: isProfile ? "profile_image" : "product_image", fileName: "image.jpg", mimeType: "image/jpeg")
             },
             to: endpoint.url!,
-            method: .post,
+            method: method,
             headers: [
                 HTTP.Headers.Key.contentType.rawValue: "multipart/form-data",
                 HTTP.Headers.Key.accept.rawValue: HTTP.Headers.Value.applicationJson.rawValue,
                 HTTP.Headers.Key.csrfToken.rawValue: cookies.first?.value ?? "",
                 HTTP.Headers.Key.auth.rawValue: authorizationHeaderValue
             ]
-        ).responseJSON { response in
+        ).responseDecodable (of: T.self) { response in
             switch response.result {
-            case .success(let value):
-                delegate
+            case .success(let items):
+                completition(.success(items))
             case .failure(let error):
-                print("Error: \(error)")
+                completition(.failure(error))
             }
         }
     }

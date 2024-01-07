@@ -13,6 +13,7 @@ class VerificationViewController: UIViewController {
     private let systemBounds = UIScreen.main.bounds
     let verificationView = VerificationView()
     let verificationViewModel: VerificationViewModel
+    var email = ""
     
     override func loadView() {
         view = verificationView
@@ -50,8 +51,9 @@ class VerificationViewController: UIViewController {
         self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
     }
     
-    init(view: VerificationView, viewModel: VerificationViewModel) {
+    init(view: VerificationView, viewModel: VerificationViewModel, data: String) {
         self.verificationViewModel = viewModel
+        email = data
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
@@ -66,7 +68,9 @@ class VerificationViewController: UIViewController {
     }
     
     @objc func nextButtonTapped(_ sender:UIButton!) {
-        let nextScreen = RecoveryViewController(view: RecoveryView(), viewModel: RecoveryViewModel())
+        self.verificationViewModel.getCode(from: email)
+        
+        let nextScreen = RecoveryViewController(view: RecoveryView(), viewModel: RecoveryViewModel(), email: email)
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     

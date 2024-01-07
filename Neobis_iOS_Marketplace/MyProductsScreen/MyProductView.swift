@@ -42,7 +42,7 @@ class MyProductView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
-        setConstraints()
+        setUI()
     }
     
     required init?(coder: NSCoder) {
@@ -50,26 +50,28 @@ class MyProductView: UIView {
     }
     
     private func initialize() {
-        backgroundColor = UIColor(rgb: 0xF7F6F9)
-//        self.addSubview(emptyImageView)
-//        self.addSubview(emptyLabel)
-        self.addSubview(collectionView)
+        backgroundColor = .white
+        collectionView.isHidden = true
     }
     
-    private func setConstraints() {
-//        self.emptyImageView.snp.makeConstraints { make in
-//            make.top.equalToSuperview().inset(systemBounds.height * 0.3)
-//            make.centerX.equalToSuperview()
-//            make.width.equalToSuperview().dividedBy(3)
-//            make.height.equalTo(emptyImageView.snp.width).multipliedBy(1.2)
-//        }
-//        self.emptyLabel.snp.makeConstraints { make in
-//            make.top.equalTo(emptyImageView.snp.bottom).offset(32)
-//            make.centerX.equalToSuperview()
-//        }
+    func setUI() {
+        self.addSubview(collectionView)
+        self.addSubview(emptyImageView)
+        self.addSubview(emptyLabel)
+        
         self.collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.bottom.trailing.leading.equalToSuperview().inset(16)
+        }
+        self.emptyImageView.snp.makeConstraints { make in
+            make.top.equalToSuperview().inset(systemBounds.height * 0.3)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(3)
+            make.height.equalTo(emptyImageView.snp.width).multipliedBy(1.2)
+        }
+        self.emptyLabel.snp.makeConstraints { make in
+            make.top.equalTo(emptyImageView.snp.bottom).offset(32)
+            make.centerX.equalToSuperview()
         }
     }
 }

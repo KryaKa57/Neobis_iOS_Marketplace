@@ -23,7 +23,7 @@ struct CustomUserDetails: Codable {
     let DOB: String?
     let phone_number: String?
     let profile_image: String?
-    let token: String
+    let token: TokenRefresh
 }
 
 struct JWT: Codable {

@@ -9,8 +9,9 @@ import Foundation
 
 class ProfileViewModel {
     var sections: [[ProfileCellData]] = []
+    var profile: CustomUserDetails?
     
-    var onSucceedRequest: ((UserDetails) -> Void)?
+    var onSucceedRequest: ((CustomUserDetails) -> Void)?
     var onErrorMessage : ((NetworkError) -> Void)?
     
     init() {
@@ -27,10 +28,11 @@ class ProfileViewModel {
     }
     
     public func getUser() {
-        let endpoint = Endpoint.getUser()
-        NetworkManager.postData(data: nil, with: endpoint) { [weak self] (result: Result<UserDetails, NetworkError>) in
+        let endpoint = Endpoint.getProfile()
+        NetworkManager.postData(data: nil, with: endpoint) { [weak self] (result: Result<CustomUserDetails, NetworkError>) in
             switch result {
             case .success(let res):
+                self?.profile = res
                 self?.onSucceedRequest?(res)
             case .failure(let error):
                 self?.onErrorMessage?(error)

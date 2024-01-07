@@ -13,6 +13,7 @@ class RecoveryViewController: UIViewController {
     private let systemBounds = UIScreen.main.bounds
     let recoveryView = RecoveryView()
     let recoveryViewModel: RecoveryViewModel
+    var email: String?
     
     override func loadView() {
         view = recoveryView
@@ -50,8 +51,9 @@ class RecoveryViewController: UIViewController {
         self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
     }
     
-    init(view: RecoveryView, viewModel: RecoveryViewModel) {
+    init(view: RecoveryView, viewModel: RecoveryViewModel, email: String) {
         self.recoveryViewModel = viewModel
+        self.email = email
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
@@ -66,6 +68,8 @@ class RecoveryViewController: UIViewController {
     }
     
     private func addTargets() {
+        recoveryView.nextButton.addTarget(self, action: #selector(sendAgain), for: .touchUpInside)
+        
     }
     
     private func addDelegates() {
@@ -73,10 +77,25 @@ class RecoveryViewController: UIViewController {
         recoveryView.phoneTextField.delegate = self
     }
     
+    @objc func sendAgain() {
+        self.recoveryViewModel.getCode(from: email ?? "")
+    }
 }
 
 extension RecoveryViewController: CodeInputViewDelegate {
     func codeInputView(_ codeInputView: CodeInputView, didFinishWithCode code: String) {
-        recoveryView.nextButton.isEnabled = (code == "1234")
+        if (code == "1234") {
+            guard let navigationController = self.navigationController else {
+                return
+            }
+
+            // Find the target view controller to which you want to navigate back
+            for viewController in navigationController.viewControllers {
+                if viewController is ProfileViewController {
+                    navigationController.popToViewController(viewController, animated: true)
+                    break
+                }
+            }
+        }
     }
 }

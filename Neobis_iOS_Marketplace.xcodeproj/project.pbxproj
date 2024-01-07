@@ -210,10 +210,10 @@
 		645290842B31E0B800855E7E /* Neobis_iOS_Marketplace */ = {
 			isa = PBXGroup;
 			children = (
-				6452913F2B4758D900855E7E /* MyProductsScreen */,
-				6452913E2B4758C000855E7E /* FavoriteProductsScreen */,
 				645290932B31E0B900855E7E /* Info.plist */,
 				645290DA2B34D9C600855E7E /* TabBarController.swift */,
+				6452913F2B4758D900855E7E /* MyProductsScreen */,
+				6452913E2B4758C000855E7E /* FavoriteProductsScreen */,
 				645291312B45F16900855E7E /* NewProductScreen */,
 				645291282B45D46E00855E7E /* ProductDetailScreen */,
 				645291232B44865700855E7E /* DataManager */,

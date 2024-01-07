@@ -80,11 +80,7 @@ class MainViewController: UIViewController {
     private func addTargets() {
         
     }
-                                                    
-    @objc func registerPhoneButtonTapped (_ sender:UIButton!) {
-        let nextScreen = VerificationViewController(view: VerificationView(), viewModel: VerificationViewModel())
-        self.navigationController?.pushViewController(nextScreen, animated: true)
-    }
+             
     
     private func addDelegates() {
         mainView.collectionView.dataSource = self

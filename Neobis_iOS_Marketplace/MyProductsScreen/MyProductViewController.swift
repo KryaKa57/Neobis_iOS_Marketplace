@@ -122,14 +122,29 @@ extension MyProductViewController: APIRequestDelegate {
     func onSucceedRequest() {
         DispatchQueue.main.async {
             self.myProductView.collectionView.reloadData()
+            
+            if self.myProductViewModel.numberOfItems() == 0 {
+                self.myProductView.backgroundColor = UIColor.white
+                self.myProductView.collectionView.isHidden = true
+                self.myProductView.emptyImageView.isHidden = false
+                self.myProductView.emptyLabel.isHidden = false
+            } else {
+                self.myProductView.backgroundColor = UIColor(rgb: 0xF7F6F9)
+                self.myProductView.collectionView.isHidden = false
+                self.myProductView.emptyImageView.isHidden = true
+                self.myProductView.emptyLabel.isHidden = true
+            }
         }
+        
     }
 }
 
-extension MyProductViewController: CustomActionDelegate {
+extension MyProductViewController: CustomActionDelegate, PoppedViewControllerDelegate {
+    
     func onEditAction() {
         let view = NewProductView()
         let nextScreen = NewProductViewController(view: view, viewModel: NewProductViewModel(), with: myProductViewModel.item(at: myProductViewModel.selectedIndex))
+        nextScreen.delegate = self
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
@@ -141,6 +156,12 @@ extension MyProductViewController: CustomActionDelegate {
         alertViewController.modalPresentationStyle = .overFullScreen // Set the presentation style
         present(alertViewController, animated: true, completion: nil)
     }
+    
+    func didPerformActionAfterPop(with item: Product?) {
+        self.myProductViewModel.updateItem(to: item!)
+        onSucceedRequest()
+    }
+
 }
 
 extension MyProductViewController: CustomAlertViewControllerDelegate {
@@ -148,3 +169,5 @@ extension MyProductViewController: CustomAlertViewControllerDelegate {
         myProductViewModel.deleteProduct(product: myProductViewModel.item(at: myProductViewModel.selectedIndex))
     }
 }
+
+

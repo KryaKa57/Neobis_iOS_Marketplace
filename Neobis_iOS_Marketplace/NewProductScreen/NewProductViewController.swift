@@ -9,10 +9,16 @@ import Foundation
 import UIKit
 import Cloudinary
 
+protocol PoppedViewControllerDelegate: AnyObject {
+    func didPerformActionAfterPop(with: Product?)
+}
 
 class NewProductViewController: UIViewController {
     var lastImageURL = ""
     var data: Product? = nil
+    var onEdit = false
+    
+    weak var delegate: PoppedViewControllerDelegate?
     
     private let systemBounds = UIScreen.main.bounds
     
@@ -29,6 +35,20 @@ class NewProductViewController: UIViewController {
         self.addTargets()
         self.addDelegates()
         self.assignRequestClosures()
+        
+        if onEdit {
+            let imageUrlString: String = data?.product_image ?? ""
+            
+            if let imageUrl = URL(string: imageUrlString) {
+                fetchImage(from: imageUrl) { [weak self] image in
+                    DispatchQueue.main.async {
+                        self?.newProductView.images.append(image ?? UIImage())
+                        self?.newProductView.updateImages()
+                    }
+                }
+            }
+            
+        }
         
         PasswordTextField.appearance().tintColor = .black
     }
@@ -54,21 +74,21 @@ class NewProductViewController: UIViewController {
             
         self.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
         
-        if data == nil {
-            self.navigationItem.title = ""
-            self.navigationItem.leftBarButtonItem = cancelButtonItem
-            self.navigationItem.rightBarButtonItem = saveButtonItem
-        } else {
-            self.tabBarController?.navigationItem.title = ""
-            self.tabBarController?.navigationItem.leftBarButtonItem = cancelButtonItem
-            self.tabBarController?.navigationItem.rightBarButtonItem = saveButtonItem
-        }
+        let navigationItem = onEdit ? self.tabBarController?.navigationItem : self.navigationItem
+        
+        navigationItem?.title = ""
+        navigationItem?.leftBarButtonItem = cancelButtonItem
+        navigationItem?.rightBarButtonItem = saveButtonItem
+        
         
     }
+    
+    
     
     init(view: NewProductView, viewModel: NewProductViewModel, with product: Product? = nil) {
         self.newProductViewModel = viewModel
         self.data = product
+        self.onEdit = (product != nil)
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
@@ -107,6 +127,8 @@ class NewProductViewController: UIViewController {
     private func addDelegates() {
         newProductView.tableView.dataSource = self
         newProductView.tableView.delegate = self
+        
+        newProductViewModel.delegate = self
     }
     
     private func assignRequestClosures() {}
@@ -129,37 +151,15 @@ class NewProductViewController: UIViewController {
             }
         }
         
-        guard let imageData = newProductView.images.first!.jpegData(compressionQuality: 0.1) else {
+        guard let imageData = newProductView.images.last!.jpegData(compressionQuality: 0.1) else {
             print("Error converting image to JPEG data")
             return
         }
         
         let parameters = ["title": texts[1], "short_description": texts[2], "description": texts[3], "price": texts[0]]
-        newProductViewModel.sendFormDataWithAlamofire(data: parameters, image: imageData)
+        newProductViewModel.sendFormDataWithAlamofire(data: parameters, image: imageData, method: onEdit, at: data?.id ?? 0)
     }
     
-    func imageToURL(image: UIImage) -> String {
-        let config = CLDConfiguration(cloudName: "ddryobvpq", apiKey: "349451583689634",apiSecret: "aJCFAR68g1-7q_sVJQbTQgBWOA4")
-        let cloudinary = CLDCloudinary(configuration: config)
-
-        let imageData = image.jpegData(compressionQuality: 0.1) // Convert UIImage to Data
-        let params = CLDUploadRequestParams()
-        params.setTransformation(CLDTransformation().setWidth(300).setHeight(300).setCrop(.fill).setGravity(.auto))
-
-        cloudinary.createUploader().signedUpload(data: imageData!, params: params, progress: { (progress) in
-            // Handle upload progress
-        }, completionHandler: { (result, error) in
-            if let result = result, let secureURL = result.secureUrl {
-                // Use secureURL for the uploaded image
-                print("Uploaded image URL: \(secureURL)")
-            } else {
-                // Handle error
-                print("Error uploading image: \(error.debugDescription)")
-            }
-        })
-
-        return ""
-    }
 
     @objc private func addImage() {
         newProductView.choosePhotoButton.layer.borderWidth = 0
@@ -172,6 +172,21 @@ class NewProductViewController: UIViewController {
     }
     
     @objc private func postData(_ button: UIButton) {}
+    
+    func fetchImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+
+            if let image = UIImage(data: data) {
+                completion(image)
+            } else {
+                completion(nil)
+            }
+        }.resume()
+    }
 }
 
 extension NewProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -189,7 +204,7 @@ extension NewProductViewController: UITableViewDataSource, UITableViewDelegate {
         
         var text = ""
         
-        if data != nil {
+        if onEdit {
             switch (indexPath.section) {
             case 0: text = "\(data?.price ?? 0)"
             case 1: text = data?.title ?? ""
@@ -253,5 +268,14 @@ extension NewProductViewController: UIImagePickerControllerDelegate, UINavigatio
 extension NewProductViewController: CustomAlertViewControllerDelegate {
     func didTapYesButton() {
         navigationController?.popViewController(animated: true)
+    }
+}
+
+extension NewProductViewController: APIRequestDelegate {
+    func onSucceedRequest() {
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+            self.delegate?.didPerformActionAfterPop(with: self.newProductViewModel.result!)
+        }
     }
 }
