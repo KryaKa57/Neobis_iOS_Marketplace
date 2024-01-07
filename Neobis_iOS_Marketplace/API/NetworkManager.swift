@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 enum NetworkError: Error, Equatable {
     case invalidURL
@@ -18,9 +19,9 @@ class NetworkManager {
     static func postData<T: Decodable> (data: Data?,
                          with endpoint: Endpoint,
                          completition: @escaping (Result<T, NetworkError>)->Void) {
+        let delegate = APIRequestDelegate
         var request = endpoint.request!
-        
-        request.addBody(for: endpoint, with: data)
+        request.httpBody = data
         
         URLSession.shared.dataTask(with: request) {data, resp, error in
             if let error = error {
@@ -44,7 +45,7 @@ class NetworkManager {
             }
             
             if let data = data {
-                print(String(data: data, encoding: .utf8))
+                print(String(data: data, encoding: .utf8) ?? Data())
                 do {
                     let decoder = JSONDecoder()
                     let tokenKey = try decoder.decode(T.self, from: data)
@@ -56,5 +57,44 @@ class NetworkManager {
                 completition(.failure(.unknown()))
             }
         }.resume()
+    }
+    
+    static func postDataWithImage (parameters: [String: Any],
+                                   image: Data,
+                                   with endpoint: Endpoint) {
+        
+        let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
+        let token = TokenDataManager.manager.accessToken
+        let authorizationHeaderValue = "Bearer \(token)"
+        
+        AF.upload (
+            multipartFormData: { (multipartFormData: MultipartFormData) in
+                for (key, value) in parameters {
+                    if let stringValue = value as? String {
+                        multipartFormData.append(stringValue.data(using: .utf8)!, withName: key)
+                    } else if let intValue = value as? Int {
+                        let stringValue = "\(intValue)"
+                        multipartFormData.append(stringValue.data(using: .utf8)!, withName: key)
+                    }
+                }
+
+                multipartFormData.append(image, withName: "product_image", fileName: "image.jpg", mimeType: "image/jpeg")
+            },
+            to: endpoint.url!,
+            method: .post,
+            headers: [
+                HTTP.Headers.Key.contentType.rawValue: "multipart/form-data",
+                HTTP.Headers.Key.accept.rawValue: HTTP.Headers.Value.applicationJson.rawValue,
+                HTTP.Headers.Key.csrfToken.rawValue: cookies.first?.value ?? "",
+                HTTP.Headers.Key.auth.rawValue: authorizationHeaderValue
+            ]
+        ).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                delegate
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
     }
 }

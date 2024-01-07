@@ -19,6 +19,7 @@ enum HTTP {
             case contentType = "Content-Type"
             case accept = "Accept"
             case csrfToken = "X-CSRFtoken"
+            case auth = "Authorization"
         }
         
         enum Value: String {

@@ -9,6 +9,7 @@ target 'Neobis_iOS_Marketplace' do
   pod 'SnapKit', '~> 5.0.0'
   pod 'CSV.swift', '~> 2.4.3'
   pod 'Cloudinary', '~> 4.0'
+  pod 'Alamofire', '~> 5.8.1'
 
   post_install do |installer|
     installer.pods_project.targets.each do |target|

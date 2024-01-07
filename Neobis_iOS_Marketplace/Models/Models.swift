@@ -107,7 +107,7 @@ struct ProductDetails: Codable {
     let short_description: String
     let description: String
     let price: Int
-    let product_image: String?
+    let product_image: Data?
 }
 
 struct Product: Codable {

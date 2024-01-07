@@ -18,7 +18,8 @@ class LoginViewModel {
         NetworkManager.postData(data: requestData, with: endpoint) { [weak self] (result: Result<JWT, NetworkError>) in
             switch result {
             case .success(let res):
-                print(res)
+                TokenDataManager.manager.setAccessToken(token: res.access_token)
+                TokenDataManager.manager.setRefreshToken(token: res.refresh_token)
                 self?.onUserLogined?()
             case .failure(let error):
                 self?.onErrorMessage?(error)

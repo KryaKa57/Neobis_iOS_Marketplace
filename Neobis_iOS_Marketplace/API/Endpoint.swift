@@ -28,7 +28,7 @@ enum Endpoint {
         return request
     }
     
-    private var url: URL? {
+    var url: URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "pavel-backender.org.kg"
@@ -68,21 +68,16 @@ extension URLRequest {
         case .addProduct:
             let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
             
-            
-            let boundary = "Boundary-\(UUID().uuidString)"
-            self.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
             self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)
+            let boundary = "Boundary-\(UUID().uuidString)"
+            self.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
+            
+            let token = TokenDataManager.manager.accessToken
+            let authorizationHeaderValue = "Bearer \(token)"
+            self.setValue(authorizationHeaderValue, forHTTPHeaderField: HTTP.Headers.Key.auth.rawValue)
             
         }
-    }
-    
-    mutating func addBody(for endpoint: Endpoint, with data: Data?) {
-        switch endpoint {
-        case .postRegistration, .postLogin, .getUser, .addProduct:
-            self.httpBody = data
-        case .getProducts, .getUserProducts, .deleteProduct: break
-        }
+        
     }
 }
-

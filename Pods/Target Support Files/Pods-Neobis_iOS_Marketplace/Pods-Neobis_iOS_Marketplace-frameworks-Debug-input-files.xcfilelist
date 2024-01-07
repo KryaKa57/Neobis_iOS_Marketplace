@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/CSV.swift/CSV.framework
 ${BUILT_PRODUCTS_DIR}/Cloudinary/Cloudinary.framework
 ${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
