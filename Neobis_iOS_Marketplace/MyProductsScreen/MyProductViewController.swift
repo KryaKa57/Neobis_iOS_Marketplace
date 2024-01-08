@@ -20,9 +20,8 @@ class MyProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addTargets()
+        
         self.addDelegates()
-        self.assignRequestClosures()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -31,21 +30,7 @@ class MyProductViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        self.tabBarController?.navigationItem.title = "Мои товары"
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
-                              NSAttributedString.Key.font:UIFont(name: "gothampro-bold", size: 14)]
-        
-        let backButton = CustomNavigationButton()
-        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        let backButtonItem = UIBarButtonItem(customView: backButton)
-        
-            
-        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
-        self.tabBarController?.navigationItem.leftBarButtonItem = backButtonItem
-        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
+        self.setupNavigationBar()
     }
     
     init(view: MyProductView, viewModel: MyProductViewModel) {
@@ -62,7 +47,21 @@ class MyProductViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func addTargets() {
+    private func setupNavigationBar() {
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.tabBarController?.navigationItem.title = "Мои товары"
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
+                              NSAttributedString.Key.font:UIFont(name: "gothampro-bold", size: 14)]
+        
+        let backButton = CustomNavigationButton()
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backButtonItem = UIBarButtonItem(customView: backButton)
+        
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
+        self.tabBarController?.navigationItem.leftBarButtonItem = backButtonItem
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
     }
     
     private func addDelegates() {
@@ -71,11 +70,6 @@ class MyProductViewController: UIViewController {
         
         myProductViewModel.delegate = self
         myProductViewModel.delegateRequest = self
-        
-    }
-    
-    private func assignRequestClosures() {
-        
     }
     
     @objc func showActionSheet() {
@@ -93,17 +87,16 @@ extension MyProductViewController: UICollectionViewDataSource, UICollectionViewD
         
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath) as! ProductCell
-            
         let item = myProductViewModel.item(at: indexPath.item)
-        cell.configure(with: item, editable: true)
         
+        cell.configure(with: item, editable: true)
         cell.editButton.addTarget(self, action: #selector(showActionSheet), for: .touchUpInside)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.size.width - 48) / 2 // Adjust the spacing as needed
-        return CGSize(width: width, height: width * 1.2) // Set cell size
+        let width = (view.frame.size.width - 48) / 2
+        return CGSize(width: width, height: width * 1.2)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -122,18 +115,8 @@ extension MyProductViewController: APIRequestDelegate {
     func onSucceedRequest() {
         DispatchQueue.main.async {
             self.myProductView.collectionView.reloadData()
+            self.myProductView.hideUI(isCollectionEmpty: self.myProductViewModel.numberOfItems() == 0)
             
-            if self.myProductViewModel.numberOfItems() == 0 {
-                self.myProductView.backgroundColor = UIColor.white
-                self.myProductView.collectionView.isHidden = true
-                self.myProductView.emptyImageView.isHidden = false
-                self.myProductView.emptyLabel.isHidden = false
-            } else {
-                self.myProductView.backgroundColor = UIColor(rgb: 0xF7F6F9)
-                self.myProductView.collectionView.isHidden = false
-                self.myProductView.emptyImageView.isHidden = true
-                self.myProductView.emptyLabel.isHidden = true
-            }
         }
         
     }

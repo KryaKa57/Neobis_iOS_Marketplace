@@ -13,6 +13,7 @@ protocol MainViewModelDelegate: AnyObject {
 
 class MainViewModel {
     
+    weak var requestDelegate: APIRequestDelegate?
     weak var delegate: MainViewModelDelegate?
     
     private var items: [Product] = []
@@ -43,6 +44,7 @@ class MainViewModel {
             switch result {
             case .success(let res):
                 self?.items = res
+                self?.requestDelegate?.onSucceedRequest()
             case .failure(let error):
                 print(error.localizedDescription)
             }

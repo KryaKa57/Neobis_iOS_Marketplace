@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 
 class ProductDetailView: UIView {
-    private let systemBounds = UIScreen.main.bounds
     var checkPasswordHeightConstraint: Constraint!
     
     lazy var topImageView: UIImageView = {
@@ -149,7 +148,7 @@ class ProductDetailView: UIView {
         self.likedButton.snp.makeConstraints { make in
             make.top.equalTo(priceLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().offset(16)
-            make.width.equalTo(systemBounds.width - 32)
+            make.width.equalTo(UIScreen.main.bounds.width - 32)
         }
         self.productNameLabel.snp.makeConstraints { make in
             make.top.equalTo(likedButton.snp.bottom).offset(16)
@@ -158,17 +157,17 @@ class ProductDetailView: UIView {
         self.productShortDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(productNameLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
-            make.width.equalTo(systemBounds.width - 32)
+            make.width.equalTo(UIScreen.main.bounds.width - 32)
         }
         self.descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(productShortDescriptionLabel.snp.bottom).offset(16)
             make.leading.equalToSuperview().inset(16)
-            make.width.equalTo(systemBounds.width - 32)
+            make.width.equalTo(UIScreen.main.bounds.width - 32)
         }
         self.productDescriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(descriptionLabel.snp.bottom).offset(8)
             make.leading.equalToSuperview().inset(16)
-            make.width.equalTo(systemBounds.width - 32)
+            make.width.equalTo(UIScreen.main.bounds.width - 32)
         }
     }
 }

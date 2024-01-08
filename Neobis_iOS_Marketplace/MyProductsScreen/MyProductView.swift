@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 
 class MyProductView: UIView {
-    private let systemBounds = UIScreen.main.bounds
-    
     lazy var emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty-box")
@@ -64,7 +62,7 @@ class MyProductView: UIView {
             make.bottom.trailing.leading.equalToSuperview().inset(16)
         }
         self.emptyImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(systemBounds.height * 0.3)
+            make.top.equalToSuperview().inset(UIScreen.main.bounds.height * 0.3)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().dividedBy(3)
             make.height.equalTo(emptyImageView.snp.width).multipliedBy(1.2)
@@ -73,6 +71,21 @@ class MyProductView: UIView {
             make.top.equalTo(emptyImageView.snp.bottom).offset(32)
             make.centerX.equalToSuperview()
         }
+    }
+    
+    func hideUI(isCollectionEmpty: Bool) {
+        if isCollectionEmpty {
+            backgroundColor = UIColor.white
+            collectionView.isHidden = true
+            emptyImageView.isHidden = false
+            emptyLabel.isHidden = false
+        } else {
+            backgroundColor = UIColor(rgb: 0xF7F6F9)
+            collectionView.isHidden = false
+            emptyImageView.isHidden = true
+            emptyLabel.isHidden = true
+        }
+            
     }
 }
 

@@ -10,8 +10,6 @@ import UIKit
 
 
 class ProductDetailViewController: UIViewController {
-    
-    private let systemBounds = UIScreen.main.bounds
     let productDetailView = ProductDetailView()
     let productDetailViewModel: ProductDetailViewModel
     
@@ -23,10 +21,6 @@ class ProductDetailViewController: UIViewController {
         super.viewDidLoad()
         
         self.setNavigation()
-        
-        self.addTargets()
-        self.addDelegates()
-        self.assignRequestClosures()
         
         PasswordTextField.appearance().tintColor = .black
     }
@@ -63,12 +57,4 @@ class ProductDetailViewController: UIViewController {
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
-    private func addTargets() {}
-
-    private func addDelegates() {}
-    
-    private func assignRequestClosures() {}
-    
-    @objc private func postData(_ button: UIButton) {}
 }

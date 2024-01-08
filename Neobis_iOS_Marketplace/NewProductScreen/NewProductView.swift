@@ -10,7 +10,6 @@ import UIKit
 import SnapKit
 
 class NewProductView: UIView {
-    private let systemBounds = UIScreen.main.bounds
     var checkPasswordHeightConstraint: Constraint!
     
     var images = [UIImage]()
@@ -20,7 +19,7 @@ class NewProductView: UIView {
         return button
     }()
     
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
@@ -47,7 +46,7 @@ class NewProductView: UIView {
     
     private func setConstraints() {
         self.choosePhotoButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(systemBounds.height * 0.15)
+            make.top.equalToSuperview().inset(UIScreen.main.bounds.height * 0.15)
             make.leading.equalToSuperview().inset(32)
             make.width.equalToSuperview().dividedBy(5)
             make.height.equalTo(choosePhotoButton.snp.width).multipliedBy(1.3)
@@ -117,16 +116,56 @@ class NewProductView: UIView {
 
     
     func updateImages() {
-        var xOffset: CGFloat = systemBounds.width * 0.2 + 48
+        var xOffset: CGFloat = UIScreen.main.bounds.width * 0.2 + 48
             
         for image in images.reversed() {
             let imageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: xOffset, y: systemBounds.height * 0.15, width: systemBounds.width * 0.2, height: systemBounds.width * 0.26)
+            imageView.frame = CGRect(x: xOffset, y: UIScreen.main.bounds.height * 0.15, width: UIScreen.main.bounds.width * 0.2, height: UIScreen.main.bounds.width * 0.26)
             imageView.layer.cornerRadius = 15
             imageView.clipsToBounds = true
             self.addSubview(imageView)
             xOffset += 90
         }
+    }
+    
+    func configure(imageUrlString: String) {
+        if let imageUrl = URL(string: imageUrlString) {
+            fetchImage(from: imageUrl) { [weak self] image in
+                DispatchQueue.main.async {
+                    self?.images.append(image ?? UIImage())
+                    self?.updateImages()
+                }
+            }
+        }
+    }
+    
+    func fetchImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+
+            if let image = UIImage(data: data) {
+                completion(image)
+            } else {
+                completion(nil)
+            }
+        }.resume()
+    }
+    
+    func getTextFromTextFields() -> [String]{
+        var texts: [String] = []
+        for section in 0..<tableView.numberOfSections {
+            for row in 0..<tableView.numberOfRows(inSection: section) {
+                if let cell = tableView.cellForRow(at: IndexPath(row: row, section: section)) as? TextFieldTableViewCell {
+                    if let text = cell.textField.text {
+                        texts.append(text)
+                    }
+                }
+            }
+        }
+        return texts
     }
 }
 

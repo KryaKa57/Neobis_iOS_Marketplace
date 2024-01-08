@@ -37,17 +37,7 @@ class NewProductViewController: UIViewController {
         self.assignRequestClosures()
         
         if onEdit {
-            let imageUrlString: String = data?.product_image ?? ""
-            
-            if let imageUrl = URL(string: imageUrlString) {
-                fetchImage(from: imageUrl) { [weak self] image in
-                    DispatchQueue.main.async {
-                        self?.newProductView.images.append(image ?? UIImage())
-                        self?.newProductView.updateImages()
-                    }
-                }
-            }
-            
+            self.newProductView.configure(imageUrlString: data?.product_image ?? "")
         }
         
         PasswordTextField.appearance().tintColor = .black
@@ -55,6 +45,24 @@ class NewProductViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.setNavigation()
+    }
+    
+    
+    
+    init(view: NewProductView, viewModel: NewProductViewModel, with product: Product? = nil) {
+        self.newProductViewModel = viewModel
+        self.data = product
+        self.onEdit = (product != nil)
+        super.init(nibName: nil, bundle: nil)
+        hidesBottomBarWhenPushed = true
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setNavigation() {
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         let saveProfileButton = CustomNavigationButton()
@@ -79,23 +87,8 @@ class NewProductViewController: UIViewController {
         navigationItem?.title = ""
         navigationItem?.leftBarButtonItem = cancelButtonItem
         navigationItem?.rightBarButtonItem = saveButtonItem
-        
-        
     }
     
-    
-    
-    init(view: NewProductView, viewModel: NewProductViewModel, with product: Product? = nil) {
-        self.newProductViewModel = viewModel
-        self.data = product
-        self.onEdit = (product != nil)
-        super.init(nibName: nil, bundle: nil)
-        hidesBottomBarWhenPushed = true
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     @objc func saveAdding(_ sender: UIButton!) {
         if newProductView.images.isEmpty || newProductView.countEmptyTextFields() > 0 {
@@ -116,7 +109,7 @@ class NewProductViewController: UIViewController {
     func presentAlertView() {
         let alertViewController = CustomAlertViewController()
         alertViewController.delegate = self
-        alertViewController.modalPresentationStyle = .overFullScreen // Set the presentation style
+        alertViewController.modalPresentationStyle = .overFullScreen
         present(alertViewController, animated: true, completion: nil)
     }
     
@@ -135,21 +128,7 @@ class NewProductViewController: UIViewController {
     
     
     func addProduct() {
-        //print(newProductView.images.first)
-        //print(imageToURL(image: newProductView.images.first!))
-        //https://res.cloudinary.com/ddryobvpq/image/upload/v1704394990/dle9g581b0rye7h33ufh.jpg
-        //ProductDetails
-        
-        var texts: [String] = []
-        for section in 0..<newProductView.tableView.numberOfSections {
-            for row in 0..<newProductView.tableView.numberOfRows(inSection: section) {
-                if let cell = newProductView.tableView.cellForRow(at: IndexPath(row: row, section: section)) as? TextFieldTableViewCell {
-                    if let text = cell.textField.text {
-                        texts.append(text)
-                    }
-                }
-            }
-        }
+        var texts = newProductView.getTextFromTextFields()
         
         guard let imageData = newProductView.images.last!.jpegData(compressionQuality: 0.1) else {
             print("Error converting image to JPEG data")
@@ -173,20 +152,7 @@ class NewProductViewController: UIViewController {
     
     @objc private func postData(_ button: UIButton) {}
     
-    func fetchImage(from url: URL, completion: @escaping (UIImage?) -> Void) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                completion(nil)
-                return
-            }
-
-            if let image = UIImage(data: data) {
-                completion(image)
-            } else {
-                completion(nil)
-            }
-        }.resume()
-    }
+    
 }
 
 extension NewProductViewController: UITableViewDataSource, UITableViewDelegate {
@@ -200,7 +166,6 @@ extension NewProductViewController: UITableViewDataSource, UITableViewDelegate {
         cell.textField.tag = indexPath.section
         cell.textField.delegate = self
         cell.contentView.isUserInteractionEnabled = false
-        
         
         var text = ""
         

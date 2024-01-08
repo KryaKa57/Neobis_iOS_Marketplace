@@ -41,7 +41,7 @@ class LoginViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
+    
     private func assignRequestClosures() {
         self.loginViewModel.onUserLogined = { [weak self] in
             DispatchQueue.main.async {

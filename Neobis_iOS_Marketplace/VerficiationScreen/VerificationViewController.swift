@@ -32,23 +32,7 @@ class VerificationViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tabBarController?.navigationItem.title = ""
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        
-        let backButton = CustomNavigationButton()
-        
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
-                              NSAttributedString.Key.font:UIFont(name: "gothampro", size: 14)]
-        
-        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.tintColor = .black
-        backButton.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
-            
-        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
-            
-        let backButtonItem = UIBarButtonItem(customView: backButton)
-        self.tabBarController?.navigationItem.leftBarButtonItem = backButtonItem
-        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
+        self.setNavigation()
     }
     
     init(view: VerificationView, viewModel: VerificationViewModel, data: String) {
@@ -69,8 +53,9 @@ class VerificationViewController: UIViewController {
     
     @objc func nextButtonTapped(_ sender:UIButton!) {
         self.verificationViewModel.getCode(from: email)
+        guard let phoneNumber = self.verificationView.phoneTextField.text else { return }
         
-        let nextScreen = RecoveryViewController(view: RecoveryView(), viewModel: RecoveryViewModel(), email: email)
+        let nextScreen = RecoveryViewController(view: RecoveryView(), viewModel: RecoveryViewModel(), email: email, phone: phoneNumber)
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
     
@@ -82,7 +67,28 @@ class VerificationViewController: UIViewController {
         verificationView.phoneTextField.delegate = self
     }
     
+    private func setNavigation() {
+        self.tabBarController?.navigationItem.title = ""
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        let backButton = CustomNavigationButton()
+        
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
+                              NSAttributedString.Key.font:UIFont(name: "gothampro", size: 14)]
+        
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.tintColor = .black
+        backButton.addTarget(self, action: #selector(backButtonTapped(_:)), for: .touchUpInside)
+        
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
+        
+        let backButtonItem = UIBarButtonItem(customView: backButton)
+        self.tabBarController?.navigationItem.leftBarButtonItem = backButtonItem
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
+        
+    }
 }
+
 
 extension VerificationViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

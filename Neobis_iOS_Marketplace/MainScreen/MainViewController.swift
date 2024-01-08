@@ -87,6 +87,7 @@ class MainViewController: UIViewController {
         mainView.collectionView.delegate = self
         
         mainViewModel.delegate = self
+        mainViewModel.requestDelegate = self
     }
     
     private func assignRequestClosures() {
@@ -124,3 +125,10 @@ extension MainViewController: MainViewModelDelegate {
         self.navigationController?.pushViewController(nextScreen, animated: true)
     }
 }
+
+extension MainViewController: APIRequestDelegate {
+    func onSucceedRequest (){
+        self.mainView.collectionView.reloadData()
+    }
+}
+

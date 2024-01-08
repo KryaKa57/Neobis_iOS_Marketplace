@@ -10,8 +10,6 @@ import UIKit
 import SnapKit
 
 class FavoriteProductView: UIView {
-    private let systemBounds = UIScreen.main.bounds
-    
     lazy var emptyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "empty-box")
@@ -44,7 +42,7 @@ class FavoriteProductView: UIView {
     
     private func setConstraints() {
         self.emptyImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(systemBounds.height * 0.3)
+            make.top.equalToSuperview().inset(UIScreen.main.bounds.height * 0.3)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().dividedBy(3)
             make.height.equalTo(emptyImageView.snp.width).multipliedBy(1.2)

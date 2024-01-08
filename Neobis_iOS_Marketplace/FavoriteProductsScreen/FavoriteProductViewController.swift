@@ -10,7 +10,6 @@ import UIKit
 
 class FavoriteProductViewController: UIViewController {
     
-    private let systemBounds = UIScreen.main.bounds
     let favoriteProductView = FavoriteProductView()
     let favoriteProductViewModel: FavoriteViewViewModel
 
@@ -28,21 +27,7 @@ class FavoriteProductViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        self.tabBarController?.navigationItem.title = "Понравившиеся"
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
-                              NSAttributedString.Key.font:UIFont(name: "gothampro-bold", size: 14)]
-        
-        let backButton = CustomNavigationButton()
-        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        let backButtonItem = UIBarButtonItem(customView: backButton)
-        
-            
-        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
-        self.tabBarController?.navigationItem.leftBarButtonItem = backButtonItem
-        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
+        self.setupNavigationBar()
     }
     
     init(view: FavoriteProductView, viewModel: FavoriteViewViewModel) {
@@ -57,5 +42,22 @@ class FavoriteProductViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func setupNavigationBar() {
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        self.tabBarController?.navigationItem.title = "Понравившиеся"
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.black,
+                              NSAttributedString.Key.font:UIFont(name: "gothampro-bold", size: 14)]
+        
+        let backButton = CustomNavigationButton()
+        backButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        let backButtonItem = UIBarButtonItem(customView: backButton)
+        
+        self.tabBarController?.navigationController?.navigationBar.titleTextAttributes = textAttributes as [NSAttributedString.Key : Any]
+        self.tabBarController?.navigationItem.leftBarButtonItem = backButtonItem
+        self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
     }
 }

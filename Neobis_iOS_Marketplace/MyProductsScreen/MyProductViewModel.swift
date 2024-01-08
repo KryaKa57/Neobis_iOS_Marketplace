@@ -32,6 +32,10 @@ class MyProductViewModel {
         return items[index]
     }
     
+    func updateItem(to item: Product) {
+        items[selectedIndex] = item
+    }
+    
     init() {
         self.getProducts()
     }
@@ -64,8 +68,5 @@ class MyProductViewModel {
         }
     }
     
-    func updateItem(to item: Product) {
-        items[selectedIndex] = item
-    }
 }
 

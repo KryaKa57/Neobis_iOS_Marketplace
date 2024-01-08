@@ -60,7 +60,7 @@ struct ResendEmailVerification: Codable {
 }
 
 struct RestAuthDetail: Codable {
-    let email: String
+    let detail: String
 }
 
 struct PasswordResetConfirm: Codable {
@@ -145,5 +145,6 @@ struct TokenVerify: Codable {
 }
 
 struct VerfiyEmail: Codable {
-    let key: String
+    let phone_number: String?
+    let verification_code: String
 }

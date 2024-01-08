@@ -14,6 +14,7 @@ class RecoveryViewController: UIViewController {
     let recoveryView = RecoveryView()
     let recoveryViewModel: RecoveryViewModel
     var email: String?
+    var phone: String?
     
     override func loadView() {
         view = recoveryView
@@ -51,9 +52,10 @@ class RecoveryViewController: UIViewController {
         self.tabBarController?.navigationItem.rightBarButtonItem?.isHidden = true
     }
     
-    init(view: RecoveryView, viewModel: RecoveryViewModel, email: String) {
+    init(view: RecoveryView, viewModel: RecoveryViewModel, email: String, phone: String) {
         self.recoveryViewModel = viewModel
         self.email = email
+        self.phone = phone
         super.init(nibName: nil, bundle: nil)
         hidesBottomBarWhenPushed = true
     }
@@ -75,6 +77,8 @@ class RecoveryViewController: UIViewController {
     private func addDelegates() {
         recoveryView.phoneTextField.becomeFirstResponder()
         recoveryView.phoneTextField.delegate = self
+        
+        recoveryViewModel.delegate = self
     }
     
     @objc func sendAgain() {
@@ -82,14 +86,17 @@ class RecoveryViewController: UIViewController {
     }
 }
 
-extension RecoveryViewController: CodeInputViewDelegate {
+extension RecoveryViewController: CodeInputViewDelegate, APIRequestDelegate {
     func codeInputView(_ codeInputView: CodeInputView, didFinishWithCode code: String) {
-        if (code == "1234") {
+        self.recoveryViewModel.checkCode(from: phone ?? "", with: code ?? "0000")
+    }
+    
+    func onSucceedRequest() {
+        DispatchQueue.main.async {
             guard let navigationController = self.navigationController else {
                 return
             }
-
-            // Find the target view controller to which you want to navigate back
+            
             for viewController in navigationController.viewControllers {
                 if viewController is ProfileViewController {
                     navigationController.popToViewController(viewController, animated: true)
