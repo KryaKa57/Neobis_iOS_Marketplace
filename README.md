@@ -44,11 +44,11 @@ Tested all possible scenarios and checked all requests for completition, like tr
 
 Below is a screenshot of how application looks like on iphone 14:
 
-![Simulator Screen Shot - iPhone 14 Pro - 2024-01-08 at 20 43 16](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/cc9879fc-4909-40e2-abb2-2936d28e7ec9)
-![Simulator Screen Shot - iPhone 14 Pro - 2024-01-08 at 20 43 57](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/9edbdd1c-1040-47c8-aee8-732ab92cc4ce)
-![Simulator Screen Shot - iPhone 14 Pro - 2024-01-08 at 20 45 07](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/cd117c09-306b-4d17-8d45-369d170f1aa2)
-![Simulator Screen Shot - iPhone 14 Pro - 2024-01-08 at 20 45 25](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/7d90e4bf-8042-4635-93f6-88e37b10529f)
-![Simulator Screen Shot - iPhone 14 Pro - 2024-01-08 at 20 46 42](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/98533d16-8054-484f-9df4-19f006b543b6)
-![Simulator Screen Shot - iPhone 14 Pro - 2024-01-08 at 20 46 30](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/5d09e1b3-55e4-456d-97cb-4ceb68ab7890)
+![resized](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/b505352c-7357-4239-ae4b-0d15ecba8ae1)
 
+![resized-1](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/0f744a4c-a044-479f-89a6-b3153d96bad1)
+![resized-2](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/2f0f2581-107a-4517-acf7-9284e0aaac1e)
+![resized-3](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/7574ca3b-0e88-4ba1-91cc-eaa8e5d63ae4)
+![resized-4](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/cb94c298-3a1f-43d8-b516-a38553dfb005)
+![resized-5](https://github.com/KryaKa57/Neobis_iOS_Marketplace/assets/132449744/92d404ca-9212-49db-bff2-059df1e6e08d)
 
