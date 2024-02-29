@@ -115,7 +115,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as? ProfileCell else {
             return UITableViewCell()
         }
-        
         cell.configure(profile: profileViewModel.sections[indexPath.section][indexPath.row], image: "")
         
         if indexPath.row == 1 && indexPath.section == 0 {
@@ -166,6 +165,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             default:
                 break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func presentAlertView() {
