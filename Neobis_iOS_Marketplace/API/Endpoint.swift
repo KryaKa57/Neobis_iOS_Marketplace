@@ -21,6 +21,7 @@ enum Endpoint {
     
     case addProduct(url: String = "/products/add/")
     case deleteProduct(url: String = "/products/")
+    case putProfile(url: String = "/api/profile/")
     
     var request: URLRequest? {
         guard let url = self.url else { return nil }
@@ -34,7 +35,7 @@ enum Endpoint {
     var url: URL? {
         var components = URLComponents()
         components.scheme = "https"
-        components.host = "pavel-backender.org.kg"
+        components.host = "kunasyl-backender.org.kg"
         components.port = nil
         components.path = self.path
         return components.url
@@ -42,7 +43,7 @@ enum Endpoint {
     
     private var path: String {
         switch self {
-        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url), .getUserProducts(let url), .addProduct(let url), .deleteProduct(let url), .getProfile(let url), .postCode(let url), .checkCode(let url):
+        case .postRegistration(let url), .postLogin(let url), .getUser(let url), .getProducts(let url), .getUserProducts(let url), .addProduct(let url), .deleteProduct(let url), .getProfile(let url), .postCode(let url), .checkCode(let url), .putProfile(let url):
             return url
         }
     }
@@ -55,6 +56,8 @@ enum Endpoint {
             return HTTP.Method.get.rawValue
         case .deleteProduct:
             return HTTP.Method.delete.rawValue
+        case .putProfile:
+            return HTTP.Method.put.rawValue
         }
     }
 }
@@ -63,14 +66,14 @@ extension URLRequest {
     mutating func addValues(for endpoint: Endpoint) {
         switch endpoint {
         case .postRegistration, .postLogin, .getUser, .getProducts, .getUserProducts, .deleteProduct, .getProfile, .postCode, .checkCode:
-            let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
+            let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies?.filter{ $0.name == "csrftoken" && $0.domain == "kunasyl-backender.org.kg"} ?? [HTTPCookie()]
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.contentType.rawValue)
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
             self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)
             
             print("CSRF-Token: \(cookies.first?.value)")
-        case .addProduct:
-            let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
+        case .addProduct, .putProfile:
+            let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies?.filter{ $0.name == "csrftoken" && $0.domain == "kunasyl-backender.org.kg"} ?? [HTTPCookie()]
             
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
             self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)

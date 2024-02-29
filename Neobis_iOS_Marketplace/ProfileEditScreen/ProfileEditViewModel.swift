@@ -62,8 +62,7 @@ class ProfileEditViewModel {
     }
     
     func sendFormDataWithAlamofire(data: [String : Any], image: Data, method: HTTPMethod) {
-        let endpoint = Endpoint.getProfile()
-        
+        let endpoint = Endpoint.putProfile()
         NetworkManager.postDataWithImage(parameters: data, image: image, with: endpoint, method: HTTPMethod.put)  { [weak self] (result: Result<CustomUserDetails, AFError>) in
             switch result {
             case .success(_):

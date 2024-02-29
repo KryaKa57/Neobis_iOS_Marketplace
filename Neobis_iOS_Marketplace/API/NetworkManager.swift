@@ -44,7 +44,7 @@ class NetworkManager {
             }
             
             if let data = data {
-                print(String(data:data,encoding:.utf8))
+                print("data: \(String(data:data,encoding:.utf8))")
                 do {
                     let decoder = JSONDecoder()
                     let tokenKey = try decoder.decode(T.self, from: data)
@@ -64,11 +64,17 @@ class NetworkManager {
                                    method: HTTPMethod,
                                    completition: @escaping (Result<T, AFError>)->Void) {
         
-        let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies ?? [HTTPCookie()]
+        let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies?.filter{ $0.name == "csrftoken" && $0.domain == "kunasyl-backender.org.kg"} ?? [HTTPCookie()]
         let token = TokenDataManager.manager.accessToken
         let authorizationHeaderValue = "Bearer \(token)"
         
-        let isProfile = (endpoint.url?.absoluteString == "https://pavel-backender.org.kg/api/profile/")
+        print(endpoint.url)
+        print(endpoint.request?.method)
+        print(endpoint.request?.url)
+        print(endpoint.request?.headers)
+        print(authorizationHeaderValue)
+        
+        let isProfile = (endpoint.url?.absoluteString == "https://kunasyl-backender.org.kg/api/profile/")
             
         AF.upload (
             multipartFormData: { (multipartFormData: MultipartFormData) in
@@ -79,6 +85,7 @@ class NetworkManager {
                         let stringValue = "\(intValue)"
                         multipartFormData.append(stringValue.data(using: .utf8)!, withName: key)
                     }
+                    print(key, value)
                 }
 
                 multipartFormData.append(image, withName: isProfile ? "profile_image" : "product_image", fileName: "image.jpg", mimeType: "image/jpeg")

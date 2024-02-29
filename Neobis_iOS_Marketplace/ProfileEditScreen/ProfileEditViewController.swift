@@ -89,6 +89,7 @@ class ProfileEditViewController: UIViewController {
         
         let parameters = ["first_name": texts[0], "last_name": texts[1], "username": texts[2]
                           , "DOB": texts[3], "phone_number": texts[4]]
+        print("parameters: \(parameters)")
         profileEditViewModel.sendFormDataWithAlamofire(data: parameters, image: imageData, method: HTTPMethod.put)
     }
     
