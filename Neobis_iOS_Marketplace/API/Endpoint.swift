@@ -71,7 +71,6 @@ extension URLRequest {
             self.setValue(HTTP.Headers.Value.applicationJson.rawValue, forHTTPHeaderField: HTTP.Headers.Key.accept.rawValue)
             self.setValue(cookies.first?.value, forHTTPHeaderField: HTTP.Headers.Key.csrfToken.rawValue)
             
-            print("CSRF-Token: \(cookies.first?.value)")
         case .addProduct, .putProfile:
             let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies?.filter{ $0.name == "csrftoken" && $0.domain == "kunasyl-backender.org.kg"} ?? [HTTPCookie()]
             

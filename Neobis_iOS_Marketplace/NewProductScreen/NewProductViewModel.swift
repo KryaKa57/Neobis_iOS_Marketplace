@@ -27,7 +27,7 @@ class NewProductViewModel {
     func sendFormDataWithAlamofire(data: [String : Any], image: Data, method: Bool, at index: Int = 0) {
         
         let endpoint = method ? Endpoint.deleteProduct(url: "/products/\(index)/") : Endpoint.addProduct()
-        var httpMethod = method ? HTTPMethod.patch : HTTPMethod.post
+        let httpMethod = method ? HTTPMethod.patch : HTTPMethod.post
         
         NetworkManager.postDataWithImage(parameters: data, image: image, with: endpoint, method: httpMethod)  { [weak self] (result: Result<Product, AFError>) in
             switch result {
@@ -36,6 +36,7 @@ class NewProductViewModel {
                 self?.delegate?.onSucceedRequest()
             case .failure(let error):
                 print(error.localizedDescription)
+                self?.delegate?.onFailedRequest()
             }
         }
     }

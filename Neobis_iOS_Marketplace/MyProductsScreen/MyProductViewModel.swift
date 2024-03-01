@@ -9,6 +9,7 @@ import Foundation
 
 protocol APIRequestDelegate: AnyObject {
     func onSucceedRequest()
+    func onFailedRequest()
 }
 
 class MyProductViewModel {

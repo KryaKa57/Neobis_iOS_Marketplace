@@ -32,6 +32,7 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        mainViewModel.getProducts()
         self.setupNavigationBar()
     }
     
@@ -128,7 +129,14 @@ extension MainViewController: MainViewModelDelegate {
 
 extension MainViewController: APIRequestDelegate {
     func onSucceedRequest (){
-        self.mainView.collectionView.reloadData()
+        DispatchQueue.main.async {
+            self.mainView.collectionView.reloadData()
+        }
+    }
+    func onFailedRequest() {
+        DispatchQueue.main.async {
+            PopupManager.showLoginFailurePopUp(on: self.view, message: "Не удалось подключиться к API", style: .errorOne)
+        }
     }
 }
 

@@ -243,4 +243,9 @@ extension NewProductViewController: APIRequestDelegate {
             self.delegate?.didPerformActionAfterPop(with: self.newProductViewModel.result!)
         }
     }
+    func onFailedRequest() {
+        DispatchQueue.main.async {
+            PopupManager.showLoginFailurePopUp(on: self.view, message: "Пройдите полную авторизацию для создания своего продукта", style: .errorOne)
+        }
+    }
 }

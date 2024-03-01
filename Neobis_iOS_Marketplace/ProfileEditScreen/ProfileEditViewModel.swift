@@ -11,6 +11,7 @@ import Alamofire
 
 protocol PutRequestDelegate: AnyObject {
     func onSucceedPutRequest()
+    func onFailedPutRequest()
 }
 
 
@@ -68,6 +69,7 @@ class ProfileEditViewModel {
             case .success(_):
                 self?.putRequest?.onSucceedPutRequest()
             case .failure(let error):
+                self?.putRequest?.onFailedPutRequest()
                 print(error.localizedDescription)
             }
         }

@@ -105,4 +105,9 @@ extension RecoveryViewController: CodeInputViewDelegate, APIRequestDelegate {
             }
         }
     }
+    func onFailedRequest() {
+        DispatchQueue.main.async {
+            PopupManager.showLoginFailurePopUp(on: self.view, message: "Не удалось отправить повторный пароль", style: .errorOne)
+        }
+    }
 }

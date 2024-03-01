@@ -118,7 +118,11 @@ extension MyProductViewController: APIRequestDelegate {
             self.myProductView.hideUI(isCollectionEmpty: self.myProductViewModel.numberOfItems() == 0)
             
         }
-        
+    }
+    func onFailedRequest() {
+        DispatchQueue.main.async {
+            PopupManager.showLoginFailurePopUp(on: self.view, message: "Не удалось подключиться к API", style: .errorOne)
+        }
     }
 }
 

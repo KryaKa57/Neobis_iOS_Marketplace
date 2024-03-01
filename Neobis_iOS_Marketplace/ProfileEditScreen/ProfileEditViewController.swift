@@ -143,6 +143,12 @@ extension ProfileEditViewController: APIRequestDelegate {
         }
     }
     
+    func onFailedRequest() {
+        DispatchQueue.main.async {
+            PopupManager.showLoginFailurePopUp(on: self.view, message: "Не удалось подключиться к API", style: .errorOne)
+        }
+    }
+    
     func getImageFromURL(_ urlString: String, completion: @escaping (UIImage?) -> Void) {
         guard let url = URL(string: urlString) else {
             completion(nil)
@@ -170,6 +176,11 @@ extension ProfileEditViewController: PutRequestDelegate {
         DispatchQueue.main.async {
             self.navigationController?.popViewController(animated: true)
             self.delegate?.didPerformActionAfterPop(with: nil)
+        }
+    }
+    func onFailedPutRequest() {
+        DispatchQueue.main.async {
+            PopupManager.showLoginFailurePopUp(on: self.view, message: "Не удалось сохранить изменения", style: .errorOne)
         }
     }
 }

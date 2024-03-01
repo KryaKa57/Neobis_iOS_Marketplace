@@ -44,7 +44,6 @@ class NetworkManager {
             }
             
             if let data = data {
-                print("data: \(String(data:data,encoding:.utf8))")
                 do {
                     let decoder = JSONDecoder()
                     let tokenKey = try decoder.decode(T.self, from: data)
@@ -63,16 +62,10 @@ class NetworkManager {
                                    with endpoint: Endpoint,
                                    method: HTTPMethod,
                                    completition: @escaping (Result<T, AFError>)->Void) {
-        
         let cookies =  URLSession.shared.configuration.httpCookieStorage?.cookies?.filter{ $0.name == "csrftoken" && $0.domain == "kunasyl-backender.org.kg"} ?? [HTTPCookie()]
         let token = TokenDataManager.manager.accessToken
         let authorizationHeaderValue = "Bearer \(token)"
         
-        print(endpoint.url)
-        print(endpoint.request?.method)
-        print(endpoint.request?.url)
-        print(endpoint.request?.headers)
-        print(authorizationHeaderValue)
         
         let isProfile = (endpoint.url?.absoluteString == "https://kunasyl-backender.org.kg/api/profile/")
             
@@ -99,6 +92,7 @@ class NetworkManager {
                 HTTP.Headers.Key.auth.rawValue: authorizationHeaderValue
             ]
         ).responseDecodable (of: T.self) { response in
+            print(response)
             switch response.result {
             case .success(let items):
                 completition(.success(items))

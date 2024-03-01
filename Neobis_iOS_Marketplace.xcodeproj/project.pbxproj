@@ -82,6 +82,7 @@
 		64AED1D32B91139B004D12F4 /* gothampro_black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64AED1C92B91139B004D12F4 /* gothampro_black.ttf */; };
 		64AED1D42B91139B004D12F4 /* gothampro_lightitalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64AED1CA2B91139B004D12F4 /* gothampro_lightitalic.ttf */; };
 		64AED1D52B91139B004D12F4 /* gothampro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 64AED1CB2B91139B004D12F4 /* gothampro.ttf */; };
+		64AED1DC2B91C7C8004D12F4 /* PopUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AED1DB2B91C7C7004D12F4 /* PopUpManager.swift */; };
 		8A53FE2B36F047AA23AEB5B2 /* Pods_Neobis_iOS_Marketplace.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A28795AD258BB37E0CEDAE5 /* Pods_Neobis_iOS_Marketplace.framework */; };
 /* End PBXBuildFile section */
 
@@ -165,6 +166,7 @@
 		64AED1C92B91139B004D12F4 /* gothampro_black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gothampro_black.ttf; sourceTree = "<group>"; };
 		64AED1CA2B91139B004D12F4 /* gothampro_lightitalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gothampro_lightitalic.ttf; sourceTree = "<group>"; };
 		64AED1CB2B91139B004D12F4 /* gothampro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gothampro.ttf; sourceTree = "<group>"; };
+		64AED1DB2B91C7C7004D12F4 /* PopUpManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpManager.swift; sourceTree = "<group>"; };
 		BA8A11A486130BE23DE3D155 /* Pods-Neobis_iOS_Marketplace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Neobis_iOS_Marketplace.release.xcconfig"; path = "Target Support Files/Pods-Neobis_iOS_Marketplace/Pods-Neobis_iOS_Marketplace.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -277,6 +279,7 @@
 				645290DE2B384A6900855E7E /* CustomNavigationButton.swift */,
 				6452913A2B470E2B00855E7E /* CustomAlertViewController.swift */,
 				6452914C2B48588900855E7E /* CustomActionSheet.swift */,
+				64AED1DB2B91C7C7004D12F4 /* PopUpManager.swift */,
 			);
 			path = "Custom UI views";
 			sourceTree = "<group>";
@@ -602,6 +605,7 @@
 				645290C82B32402C00855E7E /* CreatePasswordViewController.swift in Sources */,
 				645290D32B346FD900855E7E /* ProfileViewController.swift in Sources */,
 				645290862B31E0B800855E7E /* AppDelegate.swift in Sources */,
+				64AED1DC2B91C7C8004D12F4 /* PopUpManager.swift in Sources */,
 				645291492B475FD500855E7E /* MyProductViewController.swift in Sources */,
 				645291132B3E067C00855E7E /* MainViewModel.swift in Sources */,
 				645290A22B31EAEA00855E7E /* CustomButton.swift in Sources */,
